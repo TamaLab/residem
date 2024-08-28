@@ -7,7 +7,7 @@
   <title>Installation of ResiDEM &mdash; Residem</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0db739f3" />
 
   
     <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
@@ -17,7 +17,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=a1637f0b"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -77,7 +77,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Installation of ResiDEM</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/Installation.md" rel="nofollow"> View page source</a>
+            <a href="_sources/Installation.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -89,17 +89,17 @@
 <h1>Installation of ResiDEM<a class="headerlink" href="#installation-of-residem" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<p>Installation of ResiDEM requires few dependency such as <a class="reference external" href="https://cctbx.github.io/">Computational Crystallography Toolbox (CCTBX)</a>.
+<p>Installation of ResiDEM requires few dependencies such as <a class="reference external" href="https://cctbx.github.io/">Computational Crystallography Toolbox (CCTBX)</a>.
 It also some requires some basic python packages for data processing such as numpy, pandas, scipy etc…</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
-<p>ResiDEM is a python tool written in python 3, and it is recommended that a new environment is created for better package
+<p>ResiDEM is a python tool written in python 3 version, and it is recommended that a new environment is created for better package
 management and to avoid any dependency conflicts.</p>
 <ol class="arabic simple">
 <li><p>Creating a conda virtual environment and installation :</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># you can change the name if you want</span>
-conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>residem
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>residem<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
 conda<span class="w"> </span>activate<span class="w"> </span>residem
 </pre></div>
 </div>
@@ -126,10 +126,9 @@ conda<span class="w"> </span>env<span class="w"> </span>update<span class="w"> <
 <p class="admonition-title">Additional Information</p>
 <p>The ResiDEM package might also need <a class="reference external" href="https://www.ccp4.ac.uk/html/scaleit.html">CCP4 scaleit</a>. It
 will be used for scaling between reference and triggered state if that particular user option in given.
-It also has inbuilt scaling method, but works well with
-isomorphous data sets.</p>
+It also has inbuilt scaling method, which works well with isomorphous data sets.</p>
 </div>
-<p>To check if the CCP4 package or scaleit in the path the following command can used.</p>
+<p>To check if the CCP4 package or scaleit in the path, the following command can used.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>ccp4<span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>/dev/null
 <span class="k">then</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CCP4 in command line is Present&quot;</span>
@@ -141,19 +140,21 @@ isomorphous data sets.</p>
 </section>
 <section id="unit-test">
 <h2>Unit test<a class="headerlink" href="#unit-test" title="Link to this heading"></a></h2>
-<p>Testing the tool with Bacteriorhodopsin data.
-There are two python scripts which can be used to run to reproduce images as in the <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
+<p>Testing the tool with <code class="docutils literal notranslate"><span class="pre">Bacteriorhodopsin</span></code> data.
+There are two python scripts which can be used to run, reproduce images as in the <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
 .
-The name of the scripts are <a class="reference download internal" download="" href="_downloads/d4639bd56288e70ac83c44ccacc54e6d/residem_unit_test.py"><span class="xref download myst">residem_unit_test.py</span></a> and <a class="reference download internal" download="" href="_downloads/01a79cabf38fb5af49a1dbfd501542d4/SVD_unit_test.py"><span class="xref download myst">SVD_unit_test.py</span></a>.
-The main script <a class="reference download internal" download="" href="_downloads/d4639bd56288e70ac83c44ccacc54e6d/residem_unit_test.py"><span class="xref download myst">residem_unit_test.py</span></a>  can be used to test the tool and reproduce the certain figures as in <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
+The name of the scripts are <code class="docutils literal notranslate"><span class="pre">residem_unit_test.py</span></code> and <code class="docutils literal notranslate"><span class="pre">SVD_unit_test.py</span></code> which are available in <code class="docutils literal notranslate"><span class="pre">test_data</span></code> directory in tests as zip file.
+The main script <code class="docutils literal notranslate"><span class="pre">residem_unit_test.py</span></code> can be used to test the tool and reproduce certain figures as in <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
 .
-This script computes the isomorphous difference density for Bacteriorhodopsin(bR) for 13 time delays as published by <a class="reference external" href="https://www.science.org/doi/10.1126/science.aah3497">Nango et al.</a>
-.
-Single computation approximately takes around 3-5 minutes in personal laptop. The script <a class="reference download internal" download="" href="_downloads/d4639bd56288e70ac83c44ccacc54e6d/residem_unit_test.py"><span class="xref download myst">residem_unit_test.py</span></a>
+This script computes the isomorphous difference density for Bacteriorhodopsin(bR) for 13 time delays as published by <a class="reference external" href="https://www.science.org/doi/10.1126/science.aah3497">Nango et al.</a></p>
+<p>Single computation approximately takes around 3-5 minutes in personal laptop. The script <code class="docutils literal notranslate"><span class="pre">residem_unit_test.py</span></code>
 may take some time (~1 hour) to compute for 13 datasets.</p>
 <p>The testing can be done using the following commands.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>residem
-python<span class="w"> </span>reside_unit_test.py
+<span class="nb">cd</span><span class="w"> </span>tests
+unzip<span class="w"> </span>test_data.zip
+<span class="nb">cd</span><span class="w"> </span>test_data
+python<span class="w"> </span>residem_unit_test.py
 <span class="c1"># after completeion of the above the follwoing can be submitted.</span>
 python<span class="w"> </span>SVD_unit_test.py
 </pre></div>
@@ -165,7 +166,7 @@ Ater successful completion, the image can be found in the following places.</p>
 <li><p>Figure 3(a) can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/760ns/one_dimensional_linear_plot.pdf</span></code> .</p></li>
 <li><p>Figure 3(b) can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/negative/one_dimensional_linear_plot.pdf</span></code>.</p></li>
 <li><p>Figure 3(c) can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/negative/SVD_original.pdf</span></code>.</p></li>
-<li><p>Figure 4  can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/760ns/Difference_density_network_CA_nolabel.pdf</span></code>. In the generated image,
+<li><p>Figure 4 can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/760ns/Difference_density_network_CA_nolabel.pdf</span></code>. In the generated image,
 the edge and nodes will be same, but the layout might be different as random layout is generated every time.</p></li>
 <li><p>Figure 6(a) can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/all/correlation_plot.pdf</span></code>.</p></li>
 </ul>

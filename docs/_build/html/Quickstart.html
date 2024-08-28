@@ -7,7 +7,7 @@
   <title>Quick Start &mdash; Residem</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0db739f3" />
 
   
     <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
@@ -17,7 +17,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=a1637f0b"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -54,7 +54,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#inputs">Inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#scaling">Scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#isomorphism-idicators">Isomorphism idicators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#isomorphism-indicators">Isomorphism indicators</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#cross-r-factor-r-iso-and-isomorphism-indicating-correlation-coefficient-cc-iso">Cross -R-Factor ( <span class="math notranslate nohighlight">\(R_{iso}\)</span>) and  Isomorphism indicating correlation coefficient (<span class="math notranslate nohighlight">\(CC_{iso}\)</span>).</a></li>
 </ul>
 </li>
@@ -91,7 +91,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Quick Start</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/Quickstart.md" rel="nofollow"> View page source</a>
+            <a href="_sources/Quickstart.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,15 +106,16 @@
 <p>Getting started with <code class="docutils literal notranslate"><span class="pre">ResiDEM</span></code>.</p>
 <p>The main command line utility of the ResiDEM is <code class="docutils literal notranslate"><span class="pre">residem</span></code>.
 This utility generates isomorphous difference density map and identifies the residues associated with difference density.
-The basic command line argument to run the calculation to generate isomorphous difference density (DED) map  and identification is as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>residem<span class="w"> </span>-r<span class="w"> </span>5b6v.pdb<span class="w"> </span>-m<span class="w"> </span>5b6v.mtz<span class="w"> </span>-t<span class="w"> </span>5b6x.mtz
-residem<span class="w"> </span>-r<span class="w"> </span>5b6v.pdb<span class="w"> </span>-m<span class="w"> </span>5b6v.mtz<span class="w"> </span>-t<span class="w"> </span>5b6x.mtz<span class="w"> </span>--scale<span class="w"> </span>aniso/iso/no<span class="w"> </span>-w<span class="w"> </span>ursby/ren/hekstra/default<span class="w"> </span>-sm<span class="w"> </span>cctbx/ccp4<span class="w"> </span>
+The basic command line argument to run the calculation, generate isomorphous difference density (DED) map  and residue identification is as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># given the working directory is test_data</span>
+residem<span class="w"> </span>-r<span class="w"> </span>dark/5b6v.pdb<span class="w"> </span>-m<span class="w"> </span>dark/5b6v.mtz<span class="w"> </span>-t<span class="w"> </span>05_760ns/5b6x.mtz
+residem<span class="w"> </span>-r<span class="w"> </span>dark/5b6v.pdb<span class="w"> </span>-m<span class="w"> </span>dark/5b6v.mtz<span class="w"> </span>-t<span class="w"> </span>dark/5b6x.mtz<span class="w"> </span>--scale<span class="w"> </span>aniso/iso/no<span class="w"> </span>-w<span class="w"> </span>ursby/ren/hekstra/default<span class="w"> </span>-sm<span class="w"> </span>cctbx/ccp4<span class="w"> </span>
 </pre></div>
 </div>
 <p>In the above example, DED map is calculated for 760ns triggered structure (pdb id: 5b6x) with respect to dark state structure (pdb id: 5b6v).</p>
 <section id="inputs">
 <h2>Inputs<a class="headerlink" href="#inputs" title="Link to this heading"></a></h2>
-<p>It requires a reference state pdb <code class="docutils literal notranslate"><span class="pre">-r</span></code>, an reference state <code class="docutils literal notranslate"><span class="pre">-m</span></code> and triggered state <code class="docutils literal notranslate"><span class="pre">-t</span></code> mtz file containing
+<p>It requires a reference state pdb <code class="docutils literal notranslate"><span class="pre">-r</span></code>, an reference state <code class="docutils literal notranslate"><span class="pre">-m</span></code> and triggered state <code class="docutils literal notranslate"><span class="pre">-t</span></code> mtz files containing
 structure factor amplitudes or intensities. The reference state,triggered state
 mtz should also have a column associated with structure factor amplitudes and its associated sigma “FP,SIGFP” or
 intensities with column name “I,SIGI”.</p>
@@ -125,16 +126,16 @@ intensities with column name “I,SIGI”.</p>
 and triggered state observed structure factor <span class="math notranslate nohighlight">\(|F_{obs}^{t}|\)</span> .
 This is done through resolution dependent scaling which can be either isotropic or anisotropic.
 The tool has a few options to scale the reference and triggered state structure factor.
-This consists of scaling using either cctbx scaling method or using ccp4 based scaleit method.
-There are three options such as <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">no</span></code> scaling, <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">iso</span></code> isotropic scaling or <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">aniso</span></code>.
+This consists of scaling using either cctbx based scaling method or using ccp4 based scaleit method.
+There are three options such as <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">no</span></code> scaling, <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">iso</span></code> isotropic scaling or <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">aniso</span></code> which can be applied for scaling.
 The scaling can be done either using inbuilt method using <code class="docutils literal notranslate"><span class="pre">-sm</span> <span class="pre">cctbx</span></code> library or using <code class="docutils literal notranslate"><span class="pre">-sm</span> <span class="pre">ccp4</span></code> scaleit.
-After scaling, the time dependent intensities,  Wilson Plots of <span class="math notranslate nohighlight">\(|F_{obs}^{t}|^2\)</span> and
-the <span class="math notranslate nohighlight">\(|F_{obs}^{ref}|^2\)</span> have the approximately same slopes.</p>
+After scaling, the time dependent intensities and its Wilson Plots corresponding to <span class="math notranslate nohighlight">\(|F_{obs}^{t}|^2\)</span> and
+the <span class="math notranslate nohighlight">\(|F_{obs}^{ref}|^2\)</span> should have approximately same slopes.</p>
 <p><img alt="Wilson plot scaling" src="_images/Wilson_plot_comparison.jpg" />
 Figure 1: Wilson plot of 760ns bR Intensities before and after anisotropic scaling.</p>
 </section>
-<section id="isomorphism-idicators">
-<h2>Isomorphism idicators<a class="headerlink" href="#isomorphism-idicators" title="Link to this heading"></a></h2>
+<section id="isomorphism-indicators">
+<h2>Isomorphism indicators<a class="headerlink" href="#isomorphism-indicators" title="Link to this heading"></a></h2>
 <section id="cross-r-factor-r-iso-and-isomorphism-indicating-correlation-coefficient-cc-iso">
 <h3>Cross -R-Factor ( <span class="math notranslate nohighlight">\(R_{iso}\)</span>) and  Isomorphism indicating correlation coefficient (<span class="math notranslate nohighlight">\(CC_{iso}\)</span>).<a class="headerlink" href="#cross-r-factor-r-iso-and-isomorphism-indicating-correlation-coefficient-cc-iso" title="Link to this heading"></a></h3>
 <p>After scaling, an estimate can be obtained quantitatively to identify how similar the reference state data is
@@ -215,16 +216,16 @@ The general representation of the modified Ren weight is given by:</p>
 <div class="math notranslate nohighlight">
 \[σ_{\Delta F_{hkl,w}} = \frac{ω_{hkl}}{\langle ω \rangle} * σ_{\Delta F_{hkl}}\]</div>
 <p>where the term <span class="math notranslate nohighlight">\(\frac{ω_{hkl}}{\langle ω \rangle}\)</span> may correspond weighting scheme such as <code class="docutils literal notranslate"><span class="pre">ursby</span></code>, <code class="docutils literal notranslate"><span class="pre">ren</span></code> and modified ren (<code class="docutils literal notranslate"><span class="pre">hekstra</span></code>) with <span class="math notranslate nohighlight">\(\alpha=0.05/1\)</span> as discussed above.</p>
-<p><a class="reference external" href="https://www.science.org/doi/10.1126/science.aah3497">Nango et al.</a> for Bacteriorhodopsin(bR) did not use any weights.
-So, to discuss more about the weight, test case of Photoactive yellow protein (PYP) published by <a class="reference external" href="https://doi.org/10.1038/s41592-019-0628-z">Pandey et al.,</a> is discussed below.</p>
+<p><a class="reference external" href="https://www.science.org/doi/10.1126/science.aah3497">Nango et al.</a> for Bacteriorhodopsin(bR) dataset did not use any weights.
+In order to discuss more about the weights, another test dataset of Photoactive yellow protein (PYP) published by <a class="reference external" href="https://doi.org/10.1038/s41592-019-0628-z">Pandey et al.,</a> is discussed below.</p>
 <p><img alt="Distribution DSF" src="_images/Distribution_DSF.png" /></p>
-<p>Figure 3: Plot showing distribution of amplitude of difference structure factor as a function of signal-to-noise ratio.
+<p>Figure 3: Plot showing distribution of amplitude of difference structure factor as a function of signal-to-noise ratio for various weights.
 Clearer PDF file for the image can be found <a class="reference download internal" download="" href="_downloads/73a7e87f2cdf6ad1b1275cf56167b1d3/Difference_structure_factor_distribution.pdf"><span class="xref download myst">here</span></a>.</p>
-<p>In Figure 3,  we see the distribution of difference Fourier coefficients plotted with signal-to-noise ratios with and without weight.
-We can see the distribution of the difference structure factor. In the first distribution we can see the <span class="math notranslate nohighlight">\(|\Delta F|\)</span>
-as a function of signal-to-noise  ratio <span class="math notranslate nohighlight">\(|\Delta F|/ σ_{| \Delta F|} \)</span>, in the inset of the plot is the distribution of
+<p>In Figure 3,  we see the distribution of difference Fourier coefficients is plotted against signal-to-noise ratios with and without weight.
+The image gives an overview about the distribution of the difference structure factor and experimental error(sigma) in inset plot. In the first distribution we can see the <span class="math notranslate nohighlight">\(|\Delta F|\)</span>
+as a function of signal-to-noise  ratio <span class="math notranslate nohighlight">\(|\Delta F|/ σ_{| \Delta F|} \)</span>, the inset of the plot is the distribution of
 <span class="math notranslate nohighlight">\(|\Delta F| \)</span> vs  <span class="math notranslate nohighlight">\(σ_{| \Delta F|}\)</span>. It can be seen that by using modified Ren weight or <code class="docutils literal notranslate"><span class="pre">hekstra</span></code> weight with alpha=1 by <a class="reference external" href="https://doi.org/10.1016/S0006-3495(03)75018-8">Schmidt et al.,</a>
-is the one which satisfies the condition. This denotes that there are no large amplitudes with large experimental errors (sigma) values,
+is the one which has the least errors, which satisfies the condition. This denotes that there are no large amplitudes with large experimental errors (sigma) values,
 and hence is chosen as best weight for PYP.</p>
 <p>The obtained isomorphous difference map (DED) without and with weight is shown in the following figure.</p>
 <p><img alt="DED maps" src="_images/PYP_image.png" /></p>

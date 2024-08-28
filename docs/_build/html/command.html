@@ -7,7 +7,7 @@
   <title>Command Line options and arguments &mdash; Residem</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0db739f3" />
 
   
     <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
@@ -17,7 +17,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=a1637f0b"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -54,7 +54,6 @@
 <li class="toctree-l1"><a class="reference internal" href="Result.html">Analyzing the results</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Command Line options and arguments</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#residem">residem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#residem-pdb-mtz">residem_pdb_mtz</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#residem-coot">residem_coot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#residem-extract-around-model">residem_extract_around_model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#residem-svd-csv">residem_svd_csv</a></li>
@@ -81,7 +80,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Command Line options and arguments</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/command.md" rel="nofollow"> View page source</a>
+            <a href="_sources/command.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -95,10 +94,10 @@
 </div>
 <section id="residem">
 <h2>residem<a class="headerlink" href="#residem" title="Link to this heading"></a></h2>
-<p><em>`residem`</em> is a command line utility that computes isomorphous difference density (DED) maps. 
+<p><cite>residem</cite> is a command line utility that computes isomorphous difference density (DED) maps. 
 You will need to provide one reference PDB file along with an MTZ file of the reference and triggered system. 
 The input can be intensity profiles or structure factor amplitudes, which the program will try to detect labels for. 
-If labels for reflection files are not provided, they must be supplemented. ResiDEM performs scaling of the 
+If labels for reflection files are not provided, they must be supplemented. The ResiDEM performs scaling of the 
 reference and triggered structure factors, followed by the calculation of the difference structure factor and DED maps.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem [-h] --phil PHIL [-d DEFAULT] --ref REF --mtz MTZ --tmtz TMTZ</span>
 <span class="go">               [--high HIGH] [--low LOW] [--refl REFL] [--tril TRIL]</span>
@@ -118,7 +117,7 @@ reference and triggered structure factors, followed by the calculation of the di
 <dt class="sig sig-object std" id="cmdoption-residem-phil">
 <span id="cmdoption-residem-p"></span><span class="sig-name descname"><span class="pre">--phil</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;phil&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;phil&gt;</span></span><a class="headerlink" href="#cmdoption-residem-phil" title="Link to this definition"></a></dt>
 <dd><p>The PHIL file is a Python Hierarchical Input Language file, containing all inputs required to run the    
-        ResiDEM command line utility. This can be provided as one argument.</p>
+        ResiDEM command line utility. Provide it with one argument.</p>
 </dd></dl>
 
 <dl class="std option">
@@ -231,29 +230,9 @@ reference and triggered structure factors, followed by the calculation of the di
 </dd></dl>
 
 </section>
-<section id="residem-pdb-mtz">
-<h2>residem_pdb_mtz<a class="headerlink" href="#residem-pdb-mtz" title="Link to this heading"></a></h2>
-<p><em>`residem_pdb_mtz`</em> is a command line utility used to download PDB and MTZ files from 
-<a class="reference external" href="https://www.rcsb.org/">https://www.rcsb.org/</a>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_pdb_mtz [-h] --ref REF</span>
-</pre></div>
-</div>
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-residem_pdb_mtz-h">
-<span id="cmdoption-residem_pdb_mtz-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-residem_pdb_mtz-h" title="Link to this definition"></a></dt>
-<dd><p>show this help message and exit</p>
-</dd></dl>
-
-<dl class="std option">
-<dt class="sig sig-object std" id="cmdoption-residem_pdb_mtz-ref">
-<span id="cmdoption-residem_pdb_mtz-r"></span><span class="sig-name descname"><span class="pre">--ref</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ref&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ref&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pdb_mtz-ref" title="Link to this definition"></a></dt>
-<dd><p>PDB ID to be downloaded in lowercase. Example: 5b6v</p>
-</dd></dl>
-
-</section>
 <section id="residem-coot">
 <h2>residem_coot<a class="headerlink" href="#residem-coot" title="Link to this heading"></a></h2>
-<p><em>`residem_coot`</em> is a command line utility used to visualize DED maps. It uses Coot with 
+<p><cite>residem_coot</cite> is a command line utility used to visualize the DED maps. It uses Coot with 
 an additional script to view residues associated with DED maps. It calls Coot and provides an input script for residual 
 tracking associated with DED maps.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_coot [-h] --ref REF --map MAP</span>
@@ -280,7 +259,7 @@ tracking associated with DED maps.</p>
 </section>
 <section id="residem-extract-around-model">
 <h2>residem_extract_around_model<a class="headerlink" href="#residem-extract-around-model" title="Link to this heading"></a></h2>
-<p><em>`residem_extract_around_model`</em> is a command line utility used to extract 
+<p><cite>residem_extract_around_model</cite> is a command line utility used to extract 
 maps around a specified residue in the map.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_extract_around_model [-h] --pdb PDB --map MAP --selection</span>
 <span class="go">                                    SELECTION [--radius RADIUS] [--box BOX]</span>
@@ -333,7 +312,7 @@ maps around a specified residue in the map.</p>
 </section>
 <section id="residem-svd-csv">
 <h2>residem_svd_csv<a class="headerlink" href="#residem-svd-csv" title="Link to this heading"></a></h2>
-<p><em>`residem_svd_csv`</em> is a command line utility used to analyze the results of 
+<p><cite>residem_svd_csv</cite> is a command line utility used to analyze the results of 
 difference density output. The utility can generate one-dimensional residue-wise plots, two-dimensional heat map plots, 
 Pearson correlation plots, and network plots for residues with difference density in DED maps.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_svd_csv [-h] --file FILE --cmap CMAP --ncmap NCMAP</span>
@@ -435,7 +414,7 @@ Pearson correlation plots, and network plots for residues with difference densit
 </section>
 <section id="residem-pymol-image">
 <h2>residem_pymol_image<a class="headerlink" href="#residem-pymol-image" title="Link to this heading"></a></h2>
-<p><em>`residem_pymol_image`</em> is a command line utility used to generate images of residues 
+<p><cite>residem_pymol_image</cite> is a command line utility used to generate images of residues 
 in DED maps using PyMOL.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_pymol_image [-h] --pdb PDB --map MAP --resi RESI [--all ALL]</span>
 <span class="go">                           [--positive POSITIVE] [--negative NEGATIVE]</span>
@@ -452,7 +431,8 @@ in DED maps using PyMOL.</p>
 <dl class="std option">
 <dt class="sig sig-object std" id="cmdoption-residem_pymol_image-pdb">
 <span id="cmdoption-residem_pymol_image-r"></span><span class="sig-name descname"><span class="pre">--pdb</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;pdb&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;pdb&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-pdb" title="Link to this definition"></a></dt>
-<dd><p>PDB file for analysis.</p>
+<dd><p>PDB file for analysis. List of files can be given, or if all files are in the same folder, “<a href="#id3"><span class="problematic" id="id4">*</span></a>.csv”    
+        can be provided as input.</p>
 </dd></dl>
 
 <dl class="std option">

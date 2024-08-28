@@ -7,7 +7,7 @@
   <title>Analyzing the results &mdash; Residem</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0db739f3" />
 
   
     <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
@@ -17,7 +17,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=a1637f0b"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -81,7 +81,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Analyzing the results</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/Result.md" rel="nofollow"> View page source</a>
+            <a href="_sources/Result.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -99,8 +99,9 @@ published by <a class="reference external" href="https://doi.org/10.1126/science
 more details of which can be found in <a class="reference internal" href="command.html"><span class="std std-doc">command line options</span></a>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>bR
 <span class="nb">cd</span><span class="w"> </span>bR
-<span class="c1"># download the reference and 760ns triggered pdb </span>
-residem_pdb_mtz<span class="w"> </span>-r<span class="w"> </span>5b6v<span class="p">;</span><span class="w"> </span>residem_pdb_mtz<span class="w"> </span>-r<span class="w"> </span>5b6x<span class="w"> </span><span class="c1"># pdb code of dark and 760ns respectively</span>
+<span class="c1"># copy the data associated with 760ns given the current working directory </span>
+<span class="c1"># is test_data available in tests directory of the repository</span>
+cp<span class="w"> </span>../dark/5b6v.*<span class="w"> </span>.<span class="w"> </span><span class="p">;</span>cp<span class="w">  </span>../05_760ns/5b6x.*<span class="w"> </span>.
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tree<span class="w"> </span><span class="c1"># If you see the file in the folder we see the following</span>

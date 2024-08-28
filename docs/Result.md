@@ -20,9 +20,9 @@ more details of which can be found in [command line options](command.md).
 ~~~bash
 mkdir bR
 cd bR
-# download the reference and 760ns triggered pdb 
-residem_pdb_mtz -r 5b6v; residem_pdb_mtz -r 5b6x # pdb code of dark and 760ns respectively
-
+# copy the data associated with 760ns given the current working directory 
+# is test_data available in tests directory of the repository
+cp ../dark/5b6v.* . ;cp  ../05_760ns/5b6x.* .
 ~~~
 ```bash
 tree # If you see the file in the folder we see the following

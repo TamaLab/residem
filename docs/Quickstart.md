@@ -11,18 +11,19 @@ Getting started with `ResiDEM`.
 
 The main command line utility of the ResiDEM is ``residem``. 
 This utility generates isomorphous difference density map and identifies the residues associated with difference density. 
-The basic command line argument to run the calculation to generate isomorphous difference density (DED) map  and identification is as follows:
+The basic command line argument to run the calculation, generate isomorphous difference density (DED) map  and residue identification is as follows:
 
 ~~~bash 
-residem -r 5b6v.pdb -m 5b6v.mtz -t 5b6x.mtz
-residem -r 5b6v.pdb -m 5b6v.mtz -t 5b6x.mtz --scale aniso/iso/no -w ursby/ren/hekstra/default -sm cctbx/ccp4 
+# given the working directory is test_data
+residem -r dark/5b6v.pdb -m dark/5b6v.mtz -t 05_760ns/5b6x.mtz
+residem -r dark/5b6v.pdb -m dark/5b6v.mtz -t dark/5b6x.mtz --scale aniso/iso/no -w ursby/ren/hekstra/default -sm cctbx/ccp4 
 ~~~
 In the above example, DED map is calculated for 760ns triggered structure (pdb id: 5b6x) with respect to dark state structure (pdb id: 5b6v).
 
 
 ## Inputs 
 
-It requires a reference state pdb `-r`, an reference state `-m` and triggered state `-t` mtz file containing 
+It requires a reference state pdb `-r`, an reference state `-m` and triggered state `-t` mtz files containing 
 structure factor amplitudes or intensities. The reference state,triggered state
 mtz should also have a column associated with structure factor amplitudes and its associated sigma "FP,SIGFP" or 
 intensities with column name "I,SIGI". 
@@ -33,16 +34,16 @@ Isomorphous difference density map rely on proper scaling of the  reference stat
 and triggered state observed structure factor {math}`|F_{obs}^{t}|` .
 This is done through resolution dependent scaling which can be either isotropic or anisotropic. 
 The tool has a few options to scale the reference and triggered state structure factor. 
-This consists of scaling using either cctbx scaling method or using ccp4 based scaleit method. 
-There are three options such as `--scale no` scaling, `--scale iso` isotropic scaling or `--scale aniso`. 
+This consists of scaling using either cctbx based scaling method or using ccp4 based scaleit method. 
+There are three options such as `--scale no` scaling, `--scale iso` isotropic scaling or `--scale aniso` which can be applied for scaling. 
 The scaling can be done either using inbuilt method using `-sm cctbx` library or using `-sm ccp4` scaleit.
-After scaling, the time dependent intensities,  Wilson Plots of {math}`|F_{obs}^{t}|^2` and 
-the {math}`|F_{obs}^{ref}|^2` have the approximately same slopes.
+After scaling, the time dependent intensities and its Wilson Plots corresponding to {math}`|F_{obs}^{t}|^2` and 
+the {math}`|F_{obs}^{ref}|^2` should have approximately same slopes.
 
 ![Wilson plot scaling](images/Wilson_plot_comparison.jpg)
 Figure 1: Wilson plot of 760ns bR Intensities before and after anisotropic scaling. 
 
-## Isomorphism idicators
+## Isomorphism indicators
 ### Cross -R-Factor ( {math}`R_{iso}`) and  Isomorphism indicating correlation coefficient ({math}`CC_{iso}`).
 
 After scaling, an estimate can be obtained quantitatively to identify how similar the reference state data is 
@@ -153,19 +154,19 @@ where the term {math}`\frac{ω_{hkl}}{\langle ω \rangle}` may correspond weight
 
 
 
- [Nango et al.](https://www.science.org/doi/10.1126/science.aah3497) for Bacteriorhodopsin(bR) did not use any weights.
- So, to discuss more about the weight, test case of Photoactive yellow protein (PYP) published by [Pandey et al.,](https://doi.org/10.1038/s41592-019-0628-z) is discussed below. 
+ [Nango et al.](https://www.science.org/doi/10.1126/science.aah3497) for Bacteriorhodopsin(bR) dataset did not use any weights.
+ In order to discuss more about the weights, another test dataset of Photoactive yellow protein (PYP) published by [Pandey et al.,](https://doi.org/10.1038/s41592-019-0628-z) is discussed below. 
 
 ![Distribution DSF](images/Distribution_DSF.png)
 
-Figure 3: Plot showing distribution of amplitude of difference structure factor as a function of signal-to-noise ratio. 
+Figure 3: Plot showing distribution of amplitude of difference structure factor as a function of signal-to-noise ratio for various weights. 
 Clearer PDF file for the image can be found [here](images/Difference_structure_factor_distribution.pdf).
 
-In Figure 3,  we see the distribution of difference Fourier coefficients plotted with signal-to-noise ratios with and without weight. 
-We can see the distribution of the difference structure factor. In the first distribution we can see the {math}`|\Delta F|` 
-as a function of signal-to-noise  ratio {math}`|\Delta F|/ σ_{| \Delta F|} `, in the inset of the plot is the distribution of
+In Figure 3,  we see the distribution of difference Fourier coefficients is plotted against signal-to-noise ratios with and without weight. 
+The image gives an overview about the distribution of the difference structure factor and experimental error(sigma) in inset plot. In the first distribution we can see the {math}`|\Delta F|` 
+as a function of signal-to-noise  ratio {math}`|\Delta F|/ σ_{| \Delta F|} `, the inset of the plot is the distribution of
 {math}`|\Delta F| ` vs  {math}`σ_{| \Delta F|}`. It can be seen that by using modified Ren weight or `hekstra` weight with alpha=1 by [Schmidt et al.,](https://doi.org/10.1016/S0006-3495(03)75018-8)
-is the one which satisfies the condition. This denotes that there are no large amplitudes with large experimental errors (sigma) values, 
+is the one which has the least errors, which satisfies the condition. This denotes that there are no large amplitudes with large experimental errors (sigma) values, 
 and hence is chosen as best weight for PYP. 
 
 The obtained isomorphous difference map (DED) without and with weight is shown in the following figure. 

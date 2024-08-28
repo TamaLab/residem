@@ -37,14 +37,14 @@ Limitation
 About
 ```
 ResiDEM is a tool to analyze isomorphous difference density map and
-estimate residues having difference density feature associated with it.
+estimates residues having difference density feature associated with it.
 
-This documentation provides the Command line functionality of running the ResiDEM in Linux and Mac OS.
-The code might still be used in Windows, but the code is not tested in Windows.
+This documentation provides the command line functionality of running  `ResiDEM` in Linux and Mac OS environment.
+The code might still be used in Windows OS, but the code is not tested in Windows.
 
-The [Installation](Installation.md) contains the installation instructions of ResiDEM command line tool. 
-Sample usage of basic command line definition can be seen in [Quick Start Guide](Quickstart.md). 
-If you want to know about the [algorithm](Algorithm) or more [About](About.md) ResiDEM, you can check out our paper.
+The [Installation](Installation.md) section contains the installation instructions of ResiDEM command line tool. 
+Sample usage of basic command line definitions can be seen in [Quick Start Guide](Quickstart.md). 
+If you want to know about the [algorithm](Algorithm) or more [About](About.md) ResiDEM, you can check out our paper:
 
 [ResiDEM: Analytical Tool for Isomorphous Difference Electron Density Maps Utilizing Dynamic Residue Identification via Density
 Clustering](https://doi.org/10.1021/acs.jcim.4c00858)
@@ -59,24 +59,24 @@ Clustering](https://doi.org/10.1021/acs.jcim.4c00858)
 ```{admonition} The Main **ResiDEM** functions in jiffy!
 :class: note
 ```
-ResiDEM is composed of a few command line utilities. A detailed description of the [command line](command.md) utilities are found [here](command.md). 
+ResiDEM is a tool which is composed of a few command line utilities. A detailed description of the [command line](command.md) utilities are found [here](command.md). 
 The main function of the tool is to identify the residues associated with difference density in isomorphous difference density map. 
-It also quantifies the difference density in single and multiple time periods collected at different experimental time delays.
+It also quantifies the difference density features(blob) in single and multiple time periods collected at different experimental time delays.
 
 
-- ``residem`` is a command line utility which takes three inputs for calculation: Refined reference structure,
-structure factor amplitudes or intensity profile of reference and triggered states. 
-This command line utility computes the isomorphous difference density map and identifies the difference density associated
-to particular residues. It generates results which can be further used for network visualization and other analyses. 
+- ``residem`` is a command line utility which takes three inputs for its calculations: Refined reference structure(pdb),
+structure factor amplitudes or intensity profile of reference and triggered states as mtz files. 
+This command line utility computes the isomorphous difference density map and identifies the difference density blob associated
+to particular residues. It generates and saves the computed results which can be further used for network visualization and other analyses. 
 
-- ``residem_svd_csv`` is a command line utility which takes a reference state pdb and other command line arguments and 
-generates plots associated with difference density. It plots 1D,2D representation of 
-normalized quantified difference density which is further used for network representation. 
+- ``residem_svd_csv`` is a command line utility which takes a reference state pdb and other command line arguments. It  
+generates plots associated with residues contributing to difference density blobs. It plots 1D,2D representation of 
+normalized, quantified difference density which is further used for network representation. 
 
 - ``residem_coot`` is a command line utility which requires two arguments: one that corresponds to reference state structure(pdb), 
-and the other being the generated isomorphous difference density (DED) map. 
+and the other being the generated isomorphous difference density (DED) map in `.ccp4` format. 
 
-A detailed version of command line argument can be seen in [command line](command) section. 
+A detailed version of command line arguments can be seen in [command line](command) section. 
 
 
 

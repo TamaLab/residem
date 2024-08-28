@@ -7,7 +7,7 @@
   <title>Welcome to ResiDEM Documentation. &mdash; Residem</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=0db739f3" />
 
   
     <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
@@ -17,7 +17,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=a1637f0b"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -74,7 +74,7 @@
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Welcome to ResiDEM Documentation.</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.md" rel="nofollow"> View page source</a>
+            <a href="_sources/index.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -87,29 +87,29 @@
 <div class="toctree-wrapper compound">
 </div>
 <p>ResiDEM is a tool to analyze isomorphous difference density map and
-estimate residues having difference density feature associated with it.</p>
-<p>This documentation provides the Command line functionality of running the ResiDEM in Linux and Mac OS.
-The code might still be used in Windows, but the code is not tested in Windows.</p>
-<p>The <a class="reference internal" href="Installation.html"><span class="std std-doc">Installation</span></a> contains the installation instructions of ResiDEM command line tool.
-Sample usage of basic command line definition can be seen in <a class="reference internal" href="Quickstart.html"><span class="std std-doc">Quick Start Guide</span></a>.
-If you want to know about the <a class="reference internal" href="Algorithm.html"><span class="doc std std-doc">algorithm</span></a> or more <a class="reference internal" href="About.html"><span class="std std-doc">About</span></a> ResiDEM, you can check out our paper.</p>
+estimates residues having difference density feature associated with it.</p>
+<p>This documentation provides the command line functionality of running  <code class="docutils literal notranslate"><span class="pre">ResiDEM</span></code> in Linux and Mac OS environment.
+The code might still be used in Windows OS, but the code is not tested in Windows.</p>
+<p>The <a class="reference internal" href="Installation.html"><span class="std std-doc">Installation</span></a> section contains the installation instructions of ResiDEM command line tool.
+Sample usage of basic command line definitions can be seen in <a class="reference internal" href="Quickstart.html"><span class="std std-doc">Quick Start Guide</span></a>.
+If you want to know about the <a class="reference internal" href="Algorithm.html"><span class="doc std std-doc">algorithm</span></a> or more <a class="reference internal" href="About.html"><span class="std std-doc">About</span></a> ResiDEM, you can check out our paper:</p>
 <p><a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">ResiDEM: Analytical Tool for Isomorphous Difference Electron Density Maps Utilizing Dynamic Residue Identification via Density
 Clustering</a></p>
-<p>ResiDEM is composed of a few command line utilities. A detailed description of the <a class="reference internal" href="command.html"><span class="std std-doc">command line</span></a> utilities are found <a class="reference internal" href="command.html"><span class="std std-doc">here</span></a>.
-The main function of the tool to identify the residues associated with difference density in isomorphous difference density map.
-It also quantifies the difference density in single and multiple time periods collected at different experimental time delays.</p>
+<p>ResiDEM is a tool which is composed of a few command line utilities. A detailed description of the <a class="reference internal" href="command.html"><span class="std std-doc">command line</span></a> utilities are found <a class="reference internal" href="command.html"><span class="std std-doc">here</span></a>.
+The main function of the tool is to identify the residues associated with difference density in isomorphous difference density map.
+It also quantifies the difference density features(blob) in single and multiple time periods collected at different experimental time delays.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">residem</span></code> is a command line utility which takes three inputs for calculation: Refined reference structure,
-structure factor amplitudes or intensity profile of reference and triggered states.
-This command line utility computes the isomorphous difference density map and identifies the difference density associated
-to particular residues. It generates results which can be further used for network visualization and other analyses.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">residem_svd_csv</span></code> is a command line utility which takes a reference state pdb and other command line arguments and
-generates plots associated with difference density. It plots 1D,2D representation of
-normalized quantified difference density which is further used for network representation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">residem</span></code> is a command line utility which takes three inputs for its calculations: Refined reference structure(pdb),
+structure factor amplitudes or intensity profile of reference and triggered states as mtz files.
+This command line utility computes the isomorphous difference density map and identifies the difference density blob associated
+to particular residues. It generates and saves the computed results which can be further used for network visualization and other analyses.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">residem_svd_csv</span></code> is a command line utility which takes a reference state pdb and other command line arguments. It<br />
+generates plots associated with residues contributing to difference density blobs. It plots 1D,2D representation of
+normalized, quantified difference density which is further used for network representation.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">residem_coot</span></code> is a command line utility which requires two arguments: one that corresponds to reference state structure(pdb),
-and the other being the generated isomorphous difference density (DED) map.</p></li>
+and the other being the generated isomorphous difference density (DED) map in <code class="docutils literal notranslate"><span class="pre">.ccp4</span></code> format.</p></li>
 </ul>
-<p>A detailed version of command line argument can be seen in <a class="reference internal" href="command.html"><span class="doc std std-doc">command line</span></a> section.</p>
+<p>A detailed version of command line arguments can be seen in <a class="reference internal" href="command.html"><span class="doc std std-doc">command line</span></a> section.</p>
 <script>
 document.querySelectorAll('a[href^="http"]').forEach(link => {
     link.setAttribute('target', '_blank');
