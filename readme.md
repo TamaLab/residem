@@ -1,14 +1,13 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
-[![CI](https://github.com/hypowergravity/test_residem/actions/workflows/ci.yml/badge.svg)](https://github.com/hypowergravity/test_residem/actions/workflows/ci.yml)
+[![CI](https://github.com/TamaLab/residem/actions/workflows/ci.yml/badge.svg)](https://github.com/TamaLab/residem/actions/workflows/ci.yml)
 
 
 Platform | CI Status
 ---------|:---------
-OSX      | ![macOS Build Status](https://github.com/hypowergravity/test_residem/actions/workflows/ci.yml/badge.svg?branch=main&event=push&job=test_macos)
-Linux    | ![Ubuntu Build Status](https://github.com/hypowergravity/test_residem/actions/workflows/ci.yml/badge.svg?branch=main&event=push&job=test_ubuntu)
-
+OSX      | ![macOS Build Status](https://github.com/TamaLab/residem/actions/workflows/ci.yml/badge.svg?branch=main&event=push&job=test_macos)
+Linux    | ![Ubuntu Build Status](https://github.com/TamaLab/residem/actions/workflows/ci.yml/badge.svg?branch=main&event=push&job=test_ubuntu)
 
 
 
@@ -23,7 +22,7 @@ Linux    | ![Ubuntu Build Status](https://github.com/hypowergravity/test_residem
 
 # Resi-DEM.
 
-Resi-DEM is a tool that identifies residues in isomorphous difference density map captured using Time-resolved serial femtosecond crystallographic data. It uses DBSCAN based clustering algorithm to cluster the co-ordinates of the difference peak in the difference density map and assigns the cluster to the neighbouring atoms. It can also perform various calculations and plot their outputs. A breif documentation of ResiDEM can be found [here](https://hypowergravity.github.io/test_residem/) 
+Resi-DEM is a tool that identifies residues in isomorphous difference density map captured using Time-resolved serial femtosecond crystallographic data. It uses DBSCAN based clustering algorithm to cluster the co-ordinates of the difference peak in the difference density map and assigns the cluster to the neighbouring atoms. It can also perform various calculations and plot their outputs. A breif documentation of ResiDEM can be found here.
 
 ## Installation
 Quick installation of ResiDEM can be done using the following:
