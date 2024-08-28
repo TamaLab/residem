@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Command Line options and arguments &mdash; Residem</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Limitations" href="Limitation.html" />
+    <link rel="prev" title="Analyzing the results" href="Result.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ResiDEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation of ResiDEM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Algorithm.html">Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Result.html">Analyzing the results</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command Line options and arguments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#residem">residem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#residem-pdb-mtz">residem_pdb_mtz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#residem-coot">residem_coot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#residem-extract-around-model">residem_extract_around_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#residem-svd-csv">residem_svd_csv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#residem-pymol-image">residem_pymol_image</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Limitation.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="About.html">About ResiDEM</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ResiDEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Command Line options and arguments</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/command.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="command-line-options-and-arguments">
+<h1>Command Line options and arguments<a class="headerlink" href="#command-line-options-and-arguments" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<section id="residem">
+<h2>residem<a class="headerlink" href="#residem" title="Link to this heading"></a></h2>
+<p><cite>residem</cite> is a command line utility that computes isomorphous difference density (DED) maps. 
+You will need to provide one reference PDB file along with an MTZ file of the reference and triggered system. 
+The input can be intensity profiles or structure factor amplitudes, which the program will try to detect labels for. 
+If labels for reflection files are not provided, they must be supplemented. The ResiDEM performs scaling of the 
+reference and triggered structure factors, followed by the calculation of the difference structure factor and DED maps.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem [-h] --phil PHIL [-d DEFAULT] --ref REF --mtz MTZ --tmtz TMTZ</span>
+<span class="go">               [--high HIGH] [--low LOW] [--refl REFL] [--tril TRIL]</span>
+<span class="go">               [--fcalclabel FCALCLABEL] [--sigma SIGMA] [--weight WEIGHT]</span>
+<span class="go">               [--alpha ALPHA] [--scale SCALE] [--atom_profile ATOM_PROFILE]</span>
+<span class="go">               [--scaling_method SCALING_METHOD]</span>
+<span class="go">               [--ccp4_scaling_method CCP4_SCALING_METHOD]</span>
+</pre></div>
+</div>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-h">
+<span id="cmdoption-residem-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-residem-h" title="Link to this definition"></a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-phil">
+<span id="cmdoption-residem-p"></span><span class="sig-name descname"><span class="pre">--phil</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;phil&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;phil&gt;</span></span><a class="headerlink" href="#cmdoption-residem-phil" title="Link to this definition"></a></dt>
+<dd><p>The PHIL file is a Python Hierarchical Input Language file, containing all inputs required to run the    
+        ResiDEM command line utility. Provide it with one argument.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-d">
+<span id="cmdoption-residem-default"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;default&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--default</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;default&gt;</span></span><a class="headerlink" href="#cmdoption-residem-d" title="Link to this definition"></a></dt>
+<dd><p>Prints a default PHIL file which can be modified and provided as input.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-ref">
+<span id="cmdoption-residem-r"></span><span class="sig-name descname"><span class="pre">--ref</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ref&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ref&gt;</span></span><a class="headerlink" href="#cmdoption-residem-ref" title="Link to this definition"></a></dt>
+<dd><p>Reference PDB file used to generate phases and perform other calculations such as scaling, figure of merit,    
+        and phase error.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-mtz">
+<span id="cmdoption-residem-m"></span><span class="sig-name descname"><span class="pre">--mtz</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;mtz&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;mtz&gt;</span></span><a class="headerlink" href="#cmdoption-residem-mtz" title="Link to this definition"></a></dt>
+<dd><p>Refined reference MTZ file with experimental observed intensities or structure factors. It should also have    
+        FC and PHIC columns.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-tmtz">
+<span id="cmdoption-residem-t"></span><span class="sig-name descname"><span class="pre">--tmtz</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tmtz&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tmtz&gt;</span></span><a class="headerlink" href="#cmdoption-residem-tmtz" title="Link to this definition"></a></dt>
+<dd><p>Triggered MTZ file with experimental observed intensities or structure factors.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-high">
+<span id="cmdoption-residem-hi"></span><span class="sig-name descname"><span class="pre">--high</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;high&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-hi</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;high&gt;</span></span><a class="headerlink" href="#cmdoption-residem-high" title="Link to this definition"></a></dt>
+<dd><p>High resolution cutoff. By default, the highest common resolution between the reference and triggered    
+        structure factors is used.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-low">
+<span id="cmdoption-residem-l"></span><span class="sig-name descname"><span class="pre">--low</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;low&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;low&gt;</span></span><a class="headerlink" href="#cmdoption-residem-low" title="Link to this definition"></a></dt>
+<dd><p>Low resolution cutoff. By default, the highest common resolution between the reference and triggered    
+        structure factors is used.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-refl">
+<span id="cmdoption-residem-rl"></span><span class="sig-name descname"><span class="pre">--refl</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;refl&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-rl</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;refl&gt;</span></span><a class="headerlink" href="#cmdoption-residem-refl" title="Link to this definition"></a></dt>
+<dd><p>Label of the structure factor or intensity of the reference MTZ to be used for processing. By default, it    
+        identifies from labels such as ‘FP,SIGFP’, ‘F,SIGF’, ‘F-obs-filtered,SIGF-obs-filtered’, ‘I-obs,SIGI-obs’, or    
+        ‘I,SIGI’. If no label is identified, it must be provided.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-tril">
+<span id="cmdoption-residem-tl"></span><span class="sig-name descname"><span class="pre">--tril</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tril&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-tl</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;tril&gt;</span></span><a class="headerlink" href="#cmdoption-residem-tril" title="Link to this definition"></a></dt>
+<dd><p>Label of the structure factor or intensity of the triggered MTZ to be used for processing. By default, it    
+        identifies from labels such as ‘FP,SIGFP’, ‘F,SIGF’, ‘F-obs-filtered,SIGF-obs-filtered’, ‘I-obs,SIGI-obs’, or    
+        ‘I,SIGI’. If no label is identified, it must be provided.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-fcalclabel">
+<span id="cmdoption-residem-fl"></span><span class="sig-name descname"><span class="pre">--fcalclabel</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;fcalclabel&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-fl</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;fcalclabel&gt;</span></span><a class="headerlink" href="#cmdoption-residem-fcalclabel" title="Link to this definition"></a></dt>
+<dd><p>Label of the calculated structure factor and phase of the reference MTZ to be used for processing. By    
+        default, it identifies from labels such as ‘FC,PHIC’, ‘FC_ALL,PHIC_ALL’, ‘FC,PHIFC’, or ‘F-model,PHIF-model’.    
+        If no label is identified, it must be provided.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-sigma">
+<span id="cmdoption-residem-s"></span><span class="sig-name descname"><span class="pre">--sigma</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sigma&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sigma&gt;</span></span><a class="headerlink" href="#cmdoption-residem-sigma" title="Link to this definition"></a></dt>
+<dd><p>Sigma cutoff for data processing. By default, it is 3.0 sigma.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-weight">
+<span id="cmdoption-residem-w"></span><span class="sig-name descname"><span class="pre">--weight</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;weight&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-w</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;weight&gt;</span></span><a class="headerlink" href="#cmdoption-residem-weight" title="Link to this definition"></a></dt>
+<dd><p>Weighting scheme for the treatment of noise in DED maps.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-alpha">
+<span id="cmdoption-residem-ws"></span><span class="sig-name descname"><span class="pre">--alpha</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;alpha&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-ws</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;alpha&gt;</span></span><a class="headerlink" href="#cmdoption-residem-alpha" title="Link to this definition"></a></dt>
+<dd><p>Alpha for modified Ren weight. Use alpha=0.05 for Hekstra or alpha=1 for Schmidt weighting scheme.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-scale">
+<span class="sig-name descname"><span class="pre">--scale</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;scale&gt;</span></span><a class="headerlink" href="#cmdoption-residem-scale" title="Link to this definition"></a></dt>
+<dd><p>Scaling of structure factors between the triggered and reference systems (derivative to native scaling)    
+        before generating difference structure factors and DED maps. It can be isotropic(<cite>iso</cite>), anisotropic(<cite>aniso</cite>), or no (<cite>no</cite>)scaling if    
+        the structure factors are already scaled.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-atom_profile">
+<span id="cmdoption-residem-v"></span><span class="sig-name descname"><span class="pre">--atom_profile</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;atom_profile&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;atom_profile&gt;</span></span><a class="headerlink" href="#cmdoption-residem-atom_profile" title="Link to this definition"></a></dt>
+<dd><p>One-dimensional atom-wise representation of difference density, based on <cite>max</cite> or <cite>mean</cite> peaks around the    
+        atom profile. By default, it is mean.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-scaling_method">
+<span id="cmdoption-residem-sm"></span><span class="sig-name descname"><span class="pre">--scaling_method</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;scaling_method&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-sm</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;scaling_method&gt;</span></span><a class="headerlink" href="#cmdoption-residem-scaling_method" title="Link to this definition"></a></dt>
+<dd><p>Scaling method using methods implemented in CCTBX or CCP4-based programs.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem-ccp4_scaling_method">
+<span id="cmdoption-residem-cs"></span><span class="sig-name descname"><span class="pre">--ccp4_scaling_method</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ccp4_scaling_method&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-cs</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ccp4_scaling_method&gt;</span></span><a class="headerlink" href="#cmdoption-residem-ccp4_scaling_method" title="Link to this definition"></a></dt>
+<dd><p>If the scaling method selected is based on CCP4 programs, linear scaling can be chosen by default.</p>
+</dd></dl>
+
+</section>
+<section id="residem-pdb-mtz">
+<h2>residem_pdb_mtz<a class="headerlink" href="#residem-pdb-mtz" title="Link to this heading"></a></h2>
+<p><cite>residem_pdb_mtz</cite> is a command line utility used to download PDB and MTZ files from 
+<a class="reference external" href="https://www.rcsb.org/">https://www.rcsb.org/</a>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_pdb_mtz [-h] --ref REF</span>
+</pre></div>
+</div>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pdb_mtz-h">
+<span id="cmdoption-residem_pdb_mtz-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-residem_pdb_mtz-h" title="Link to this definition"></a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pdb_mtz-ref">
+<span id="cmdoption-residem_pdb_mtz-r"></span><span class="sig-name descname"><span class="pre">--ref</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ref&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ref&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pdb_mtz-ref" title="Link to this definition"></a></dt>
+<dd><p>PDB ID to be downloaded in lowercase. Example: 5b6v</p>
+</dd></dl>
+
+</section>
+<section id="residem-coot">
+<h2>residem_coot<a class="headerlink" href="#residem-coot" title="Link to this heading"></a></h2>
+<p><cite>residem_coot</cite> is a command line utility used to visualize the DED maps. It uses Coot with 
+an additional script to view residues associated with DED maps. It calls Coot and provides an input script for residual 
+tracking associated with DED maps.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_coot [-h] --ref REF --map MAP</span>
+</pre></div>
+</div>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_coot-h">
+<span id="cmdoption-residem_coot-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-residem_coot-h" title="Link to this definition"></a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_coot-ref">
+<span id="cmdoption-residem_coot-r"></span><span class="sig-name descname"><span class="pre">--ref</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ref&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ref&gt;</span></span><a class="headerlink" href="#cmdoption-residem_coot-ref" title="Link to this definition"></a></dt>
+<dd><p>Reference PDB for model visualization</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_coot-map">
+<span id="cmdoption-residem_coot-m"></span><span class="sig-name descname"><span class="pre">--map</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;map&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;map&gt;</span></span><a class="headerlink" href="#cmdoption-residem_coot-map" title="Link to this definition"></a></dt>
+<dd><p>Isomorphous difference density (DED) map for visualization</p>
+</dd></dl>
+
+</section>
+<section id="residem-extract-around-model">
+<h2>residem_extract_around_model<a class="headerlink" href="#residem-extract-around-model" title="Link to this heading"></a></h2>
+<p><cite>residem_extract_around_model</cite> is a command line utility used to extract 
+maps around a specified residue in the map.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_extract_around_model [-h] --pdb PDB --map MAP --selection</span>
+<span class="go">                                    SELECTION [--radius RADIUS] [--box BOX]</span>
+<span class="go">                                    [--output OUTPUT]</span>
+</pre></div>
+</div>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_extract_around_model-h">
+<span id="cmdoption-residem_extract_around_model-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-residem_extract_around_model-h" title="Link to this definition"></a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_extract_around_model-pdb">
+<span id="cmdoption-residem_extract_around_model-r"></span><span class="sig-name descname"><span class="pre">--pdb</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;pdb&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;pdb&gt;</span></span><a class="headerlink" href="#cmdoption-residem_extract_around_model-pdb" title="Link to this definition"></a></dt>
+<dd><p>Reference PDB for mask calculation</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_extract_around_model-map">
+<span id="cmdoption-residem_extract_around_model-m"></span><span class="sig-name descname"><span class="pre">--map</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;map&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;map&gt;</span></span><a class="headerlink" href="#cmdoption-residem_extract_around_model-map" title="Link to this definition"></a></dt>
+<dd><p>Isomorphous difference density (DED) map for masking in CCP4 format</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_extract_around_model-selection">
+<span id="cmdoption-residem_extract_around_model-s"></span><span class="sig-name descname"><span class="pre">--selection</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;selection&gt;</span></span><a class="headerlink" href="#cmdoption-residem_extract_around_model-selection" title="Link to this definition"></a></dt>
+<dd><p>Residue selection for masking the DED map. Phenix/CCTBX atom naming should be given as input.   
+        Example: ‘resseq 182:214’</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_extract_around_model-radius">
+<span id="cmdoption-residem_extract_around_model-d"></span><span class="sig-name descname"><span class="pre">--radius</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;radius&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;radius&gt;</span></span><a class="headerlink" href="#cmdoption-residem_extract_around_model-radius" title="Link to this definition"></a></dt>
+<dd><p>Radius around the residue where the map should be truncated. Default is 5 Å.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_extract_around_model-box">
+<span id="cmdoption-residem_extract_around_model-b"></span><span class="sig-name descname"><span class="pre">--box</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;box&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-b</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;box&gt;</span></span><a class="headerlink" href="#cmdoption-residem_extract_around_model-box" title="Link to this definition"></a></dt>
+<dd><p>Box cushion around the residue where the map should be truncated. Default is 5 Å.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_extract_around_model-output">
+<span id="cmdoption-residem_extract_around_model-o"></span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-residem_extract_around_model-output" title="Link to this definition"></a></dt>
+<dd><p>Output name of the truncated map.</p>
+</dd></dl>
+
+</section>
+<section id="residem-svd-csv">
+<h2>residem_svd_csv<a class="headerlink" href="#residem-svd-csv" title="Link to this heading"></a></h2>
+<p><cite>residem_svd_csv</cite> is a command line utility used to analyze the results of 
+difference density output. The utility can generate one-dimensional residue-wise plots, two-dimensional heat map plots, 
+Pearson correlation plots, and network plots for residues with difference density in DED maps.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_svd_csv [-h] --file FILE --cmap CMAP --ncmap NCMAP</span>
+<span class="go">                       [--closeness CLOSENESS] [--cutoff CUTOFF]</span>
+<span class="go">                       [--residue RESIDUE] [--pdb PDB] [--dist DIST]</span>
+<span class="go">                       [--low LOW] [--medium MEDIUM] [--map_type MAP_TYPE]</span>
+<span class="go">                       [--norm NORM] [--ew EW]</span>
+</pre></div>
+</div>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-h">
+<span id="cmdoption-residem_svd_csv-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-residem_svd_csv-h" title="Link to this definition"></a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-file">
+<span id="cmdoption-residem_svd_csv-f"></span><span class="sig-name descname"><span class="pre">--file</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;file&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-f</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;file&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-file" title="Link to this definition"></a></dt>
+<dd><p>Files for analysis. List of files can be given, or if all files are in the same folder, “<a href="#id1"><span class="problematic" id="id2">*</span></a>.csv”    
+        can be provided as input.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-cmap">
+<span id="cmdoption-residem_svd_csv-c"></span><span class="sig-name descname"><span class="pre">--cmap</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;cmap&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;cmap&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-cmap" title="Link to this definition"></a></dt>
+<dd><p>Matplotlib colormap for plotting. Default is ‘Spectral’. More can be found    
+        at <a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">https://matplotlib.org/stable/users/explain/colors/colormaps.html</a></p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-ncmap">
+<span id="cmdoption-residem_svd_csv-s"></span><span class="sig-name descname"><span class="pre">--ncmap</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ncmap&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ncmap&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-ncmap" title="Link to this definition"></a></dt>
+<dd><p>Network colormap for plotting. Default is ‘Blues’ but can be changed to any sequential colors    
+        from <a class="reference external" href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">https://matplotlib.org/stable/users/explain/colors/colormaps.html</a>.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-closeness">
+<span id="cmdoption-residem_svd_csv-k"></span><span class="sig-name descname"><span class="pre">--closeness</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;closeness&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-k</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;closeness&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-closeness" title="Link to this definition"></a></dt>
+<dd><p>Subplot node closeness. Default is 0.05, but can be adjusted depending on the layout.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-cutoff">
+<span id="cmdoption-residem_svd_csv-i"></span><span class="sig-name descname"><span class="pre">--cutoff</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;cutoff&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-i</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;cutoff&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-cutoff" title="Link to this definition"></a></dt>
+<dd><p>Cutoff score for the data frame. The script either uses ‘electron_sum_around_the_site’ or ‘peak_sum’    
+        from the input CSV. A cutoff score can be provided to mask values above it. Default is zero.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-residue">
+<span id="cmdoption-residem_svd_csv-n"></span><span class="sig-name descname"><span class="pre">--residue</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;residue&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;residue&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-residue" title="Link to this definition"></a></dt>
+<dd><p>Residues for analysis and plotting network. Example: ‘182,216-218,300’</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-pdb">
+<span id="cmdoption-residem_svd_csv-r"></span><span class="sig-name descname"><span class="pre">--pdb</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;pdb&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;pdb&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-pdb" title="Link to this definition"></a></dt>
+<dd><p>Input reference PDB from which distance is calculated for network representation</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-dist">
+<span id="cmdoption-residem_svd_csv-d"></span><span class="sig-name descname"><span class="pre">--dist</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dist&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;dist&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-dist" title="Link to this definition"></a></dt>
+<dd><p>Distance calculation type. Available options are CA (C-alpha), CM (center of mass for non-hydrogen atoms),    
+        or SC (center of mass for non-hydrogen side chain atoms).</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-low">
+<span id="cmdoption-residem_svd_csv-l"></span><span class="sig-name descname"><span class="pre">--low</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;low&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;low&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-low" title="Link to this definition"></a></dt>
+<dd><p>Low electron density sum cutoff threshold for plotting node size. Default is 0.05.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-medium">
+<span id="cmdoption-residem_svd_csv-m"></span><span class="sig-name descname"><span class="pre">--medium</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;medium&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;medium&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-medium" title="Link to this definition"></a></dt>
+<dd><p>Medium electron density sum cutoff threshold for plotting node size.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-map_type">
+<span id="cmdoption-residem_svd_csv-t"></span><span class="sig-name descname"><span class="pre">--map_type</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;map_type&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;map_type&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-map_type" title="Link to this definition"></a></dt>
+<dd><p>Type of map input. Options are ‘peak’ or ‘density’. By default, ‘density’ is chosen.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-norm">
+<span id="cmdoption-residem_svd_csv-z"></span><span class="sig-name descname"><span class="pre">--norm</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;norm&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-z</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;norm&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-norm" title="Link to this definition"></a></dt>
+<dd><p>Whether to normalize the input values. Must be either True or False.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_svd_csv-ew">
+<span class="sig-name descname"><span class="pre">--ew</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ew&gt;</span></span><a class="headerlink" href="#cmdoption-residem_svd_csv-ew" title="Link to this definition"></a></dt>
+<dd><p>Edge width between nodes. Default is 0.150.</p>
+</dd></dl>
+
+</section>
+<section id="residem-pymol-image">
+<h2>residem_pymol_image<a class="headerlink" href="#residem-pymol-image" title="Link to this heading"></a></h2>
+<p><cite>residem_pymol_image</cite> is a command line utility used to generate images of residues 
+in DED maps using PyMOL.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: residem_pymol_image [-h] --pdb PDB --map MAP --resi RESI [--all ALL]</span>
+<span class="go">                           [--positive POSITIVE] [--negative NEGATIVE]</span>
+<span class="go">                           [--sigma SIGMA] [--carve CARVE] [--output OUTPUT]</span>
+<span class="go">                           [--rot_x ROT_X] [--rot_y ROT_Y] [--rot_z ROT_Z]</span>
+</pre></div>
+</div>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-h">
+<span id="cmdoption-residem_pymol_image-help"></span><span class="sig-name descname"><span class="pre">-h</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--help</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-residem_pymol_image-h" title="Link to this definition"></a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-pdb">
+<span id="cmdoption-residem_pymol_image-r"></span><span class="sig-name descname"><span class="pre">--pdb</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;pdb&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-r</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;pdb&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-pdb" title="Link to this definition"></a></dt>
+<dd><p>PDB file for analysis. List of files can be given, or if all files are in the same folder, “<a href="#id3"><span class="problematic" id="id4">*</span></a>.csv”    
+        can be provided as input.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-map">
+<span id="cmdoption-residem_pymol_image-m"></span><span class="sig-name descname"><span class="pre">--map</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;map&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-m</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;map&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-map" title="Link to this definition"></a></dt>
+<dd><p>Isomorphous difference density map in CCP4 format.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-resi">
+<span id="cmdoption-residem_pymol_image-resi"></span><span class="sig-name descname"><span class="pre">--resi</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;resi&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-resi</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;resi&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-resi" title="Link to this definition"></a></dt>
+<dd><p>List of residues for which map and image should be generated, using PyMOL atom selection syntax.   
+        Example: ‘resi 182+216+300’. More details about [atom selection syntax](<a class="reference external" href="https://pymolwiki.org/index.php/Selection_Algebra">https://pymolwiki.org/index.php/Selection_Algebra</a>)</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-all">
+<span id="cmdoption-residem_pymol_image-all"></span><span class="sig-name descname"><span class="pre">--all</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;all&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-all</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;all&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-all" title="Link to this definition"></a></dt>
+<dd><p>If true, images of both positive and negative DED maps will be generated.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-positive">
+<span id="cmdoption-residem_pymol_image-p"></span><span class="sig-name descname"><span class="pre">--positive</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;positive&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-p</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;positive&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-positive" title="Link to this definition"></a></dt>
+<dd><p>If true, only an image of the positive DED map will be generated.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-negative">
+<span id="cmdoption-residem_pymol_image-n"></span><span class="sig-name descname"><span class="pre">--negative</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;negative&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;negative&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-negative" title="Link to this definition"></a></dt>
+<dd><p>If true, only an image of the negative DED map will be generated.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-sigma">
+<span id="cmdoption-residem_pymol_image-s"></span><span class="sig-name descname"><span class="pre">--sigma</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sigma&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sigma&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-sigma" title="Link to this definition"></a></dt>
+<dd><p>Sigma cutoff of the DED map. Default is +/- 3.0 sigma.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-carve">
+<span id="cmdoption-residem_pymol_image-c"></span><span class="sig-name descname"><span class="pre">--carve</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;carve&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-c</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;carve&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-carve" title="Link to this definition"></a></dt>
+<dd><p>Carve radius around the atom. Default is 1.2 Å.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-output">
+<span id="cmdoption-residem_pymol_image-o"></span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-output" title="Link to this definition"></a></dt>
+<dd><p>Output name of the PNG file.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-rot_x">
+<span id="cmdoption-residem_pymol_image-x"></span><span class="sig-name descname"><span class="pre">--rot_x</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rot_x&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-x</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rot_x&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-rot_x" title="Link to this definition"></a></dt>
+<dd><p>Rotation around the x-axis in degrees.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-rot_y">
+<span id="cmdoption-residem_pymol_image-y"></span><span class="sig-name descname"><span class="pre">--rot_y</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rot_y&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-y</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rot_y&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-rot_y" title="Link to this definition"></a></dt>
+<dd><p>Rotation around the y-axis in degrees.</p>
+</dd></dl>
+
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-residem_pymol_image-rot_z">
+<span id="cmdoption-residem_pymol_image-z"></span><span class="sig-name descname"><span class="pre">--rot_z</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rot_z&gt;</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">-z</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;rot_z&gt;</span></span><a class="headerlink" href="#cmdoption-residem_pymol_image-rot_z" title="Link to this definition"></a></dt>
+<dd><p>Rotation around the z-axis in degrees.</p>
+</dd></dl>
+
+</section>
+<script>
+document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.setAttribute('target', '_blank');
+});
+</script>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Result.html" class="btn btn-neutral float-left" title="Analyzing the results" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Limitation.html" class="btn btn-neutral float-right" title="Limitations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sriram Srinivasa Raghavan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
