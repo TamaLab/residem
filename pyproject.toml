@@ -1,0 +1,52 @@
+[build-system]
+requires = ["flit_core ==3.9.0"]
+build-backend = "flit_core.buildapi"
+
+
+[project]
+name = "residem"
+authors = [
+    {name = "sriram srinivasa raghavan", email = "hypowergravity@gmail.com"},
+]
+readme = "readme.md"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3"
+dynamic = ["version", "description"]
+
+
+dependencies = [
+    "numpy",
+    "configparser; python_version >= '3.7'",
+    "scipy >= 1.7.3",
+    "pandas",
+    "tqdm",
+]
+
+[project.flit.metadata]
+dependencies = [
+    "cctbx-base==2022.5",
+]
+channels = [
+    "conda-forge",
+]
+
+
+[project.scripts]
+residem_pdb_mtz = "residem.pdb_mtz:main"
+residem = "residem.master:run_all"
+residem_coot = "residem.coot:run_all"
+residem_extract_around_model = "residem.MapCoeffSet:run_2_all"
+residem_svd_csv = "residem.SVD_map_analysis_csv:main"
+residem_pymol_image = "residem.pymol_image:run_all"
+
+
+
+
+
+
+
+
+
+

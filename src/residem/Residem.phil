@@ -1,0 +1,34 @@
+reference = None
+    .type = path
+    .help = reference state pdb file
+reference_mtz = None
+  .type = path
+  .help = Reference MTZ file
+  .short_caption = Reference Reflections
+reference_label = "FP,SIGFP"
+  .type = str
+  .short_caption = Reference Label
+  .input_size = 160
+Triggered_mtz = None
+  .type = path
+  .help = Triggered MTZ file
+  .short_caption = Reflections of triggered state 
+  .style = bold file_type:hkl process_hkl child:fobs:f_obs_2_label force_data
+triggered_label = "FP,SIGFP"
+  .type = str
+  .short_caption = Triggered  Label
+  .input_size = 160
+high_resolution = None
+  .type = float
+  .help = High resolution data cutoff
+low_resolution = None
+  .type = float
+  .help = Low resolution data cutoff
+sigma = 3.0
+  .type = float
+  .help = sigma cutoff
+max_distance = 2.0
+  .type = float
+  .help = maximum distance with residue to search for density profiles. 
+  
+  
