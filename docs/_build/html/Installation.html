@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation of ResiDEM &mdash; Residem</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=a1637f0b"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start" href="Quickstart.html" />
+    <link rel="prev" title="Welcome to ResiDEM Documentation." href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ResiDEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation of ResiDEM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unit-test">Unit test</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Algorithm.html">Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Result.html">Analyzing the results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command.html">Command Line options and arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Limitation.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="About.html">About ResiDEM</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ResiDEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation of ResiDEM</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Installation.md" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="installation-of-residem">
+<h1>Installation of ResiDEM<a class="headerlink" href="#installation-of-residem" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>Installation of ResiDEM requires few dependency such as <a class="reference external" href="https://cctbx.github.io/">Computational Crystallography Toolbox (CCTBX)</a>.
+It also some requires some basic python packages for data processing such as numpy, pandas, scipy etc…</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>ResiDEM is a python tool written in python 3, and it is recommended that a new environment is created for better package
+management and to avoid any dependency conflicts.</p>
+<ol class="arabic simple">
+<li><p>Creating a conda virtual environment and installation :</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># you can change the name if you want</span>
+conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>residem
+conda<span class="w"> </span>activate<span class="w"> </span>residem
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Updating the environment</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># After activation of residem environment, we can check the location with command `which python`</span>
+<span class="c1"># do the following to install in particular residem environment</span>
+
+<span class="nv">full_path</span><span class="o">=</span><span class="k">$(</span>which<span class="w"> </span>python<span class="k">)</span>
+<span class="nv">base_path</span><span class="o">=</span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$full_path</span><span class="s2">&quot;</span><span class="k">))</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$base_path</span>
+
+conda<span class="w"> </span>env<span class="w"> </span>update<span class="w"> </span>--prefix<span class="w"> </span><span class="nv">$base_path</span><span class="w"> </span>--file<span class="w"> </span>environment.yml<span class="w"> </span>--prune
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Install ResiDEM package</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>dist/residem-0.1.0.tar.gz
+</pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Additional Information</p>
+<p>The ResiDEM package might also need <a class="reference external" href="https://www.ccp4.ac.uk/html/scaleit.html">CCP4 scaleit</a>. It
+will be used for scaling between reference and triggered state if that particular user option in given.
+It also has inbuilt scaling method, but works well with
+isomorphous data sets.</p>
+</div>
+<p>To check if the CCP4 package or scaleit in the path the following command can used.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>ccp4<span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>/dev/null
+<span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CCP4 in command line is Present&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CCP4 in command line is Not Present please install and give the path&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</section>
+<section id="unit-test">
+<h2>Unit test<a class="headerlink" href="#unit-test" title="Link to this heading"></a></h2>
+<p>Testing the tool with Bacteriorhodopsin data.
+There are two python scripts which can be used to run to reproduce images as in the <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
+.
+The name of the scripts are <a class="reference download internal" download="" href="_downloads/d4639bd56288e70ac83c44ccacc54e6d/residem_unit_test.py"><span class="xref download myst">residem_unit_test.py</span></a> and <a class="reference download internal" download="" href="_downloads/01a79cabf38fb5af49a1dbfd501542d4/SVD_unit_test.py"><span class="xref download myst">SVD_unit_test.py</span></a>.
+The main script <a class="reference download internal" download="" href="_downloads/d4639bd56288e70ac83c44ccacc54e6d/residem_unit_test.py"><span class="xref download myst">residem_unit_test.py</span></a>  can be used to test the tool and reproduce the certain figures as in <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
+.
+This script computes the isomorphous difference density for Bacteriorhodopsin(bR) for 13 time delays as published by <a class="reference external" href="https://www.science.org/doi/10.1126/science.aah3497">Nango et al.</a>
+.
+Single computation approximately takes around 3-5 minutes in personal laptop. The script <a class="reference download internal" download="" href="_downloads/d4639bd56288e70ac83c44ccacc54e6d/residem_unit_test.py"><span class="xref download myst">residem_unit_test.py</span></a>
+may take some time (~1 hour) to compute for 13 datasets.</p>
+<p>The testing can be done using the following commands.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>residem
+python<span class="w"> </span>reside_unit_test.py
+<span class="c1"># after completeion of the above the follwoing can be submitted.</span>
+python<span class="w"> </span>SVD_unit_test.py
+</pre></div>
+</div>
+<p>After running the script, image corresponding to Figure 3, Figure 4 and Figure 6(a) as in <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
+can be reproduced.
+Ater successful completion, the image can be found in the following places.</p>
+<ul class="simple">
+<li><p>Figure 3(a) can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/760ns/one_dimensional_linear_plot.pdf</span></code> .</p></li>
+<li><p>Figure 3(b) can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/negative/one_dimensional_linear_plot.pdf</span></code>.</p></li>
+<li><p>Figure 3(c) can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/negative/SVD_original.pdf</span></code>.</p></li>
+<li><p>Figure 4  can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/760ns/Difference_density_network_CA_nolabel.pdf</span></code>. In the generated image,
+the edge and nodes will be same, but the layout might be different as random layout is generated every time.</p></li>
+<li><p>Figure 6(a) can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/all/correlation_plot.pdf</span></code>.</p></li>
+</ul>
+<script>
+document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.setAttribute('target', '_blank');
+});
+</script>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to ResiDEM Documentation." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Quickstart.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sriram Srinivasa Raghavan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

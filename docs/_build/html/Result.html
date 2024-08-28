@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analyzing the results &mdash; Residem</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=a1637f0b"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command Line options and arguments" href="command.html" />
+    <link rel="prev" title="Algorithm" href="Algorithm.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ResiDEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation of ResiDEM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Algorithm.html">Algorithm</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analyzing the results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-command">Running the command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-the-results">Overview of the results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#one-dimensional-analysis-of-difference-density-obtained-from-clustering">One dimensional analysis of difference density obtained from clustering.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#collective-analysis-of-results-for-various-delayed-time-period">Collective analysis of results for various delayed time period</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command.html">Command Line options and arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Limitation.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="About.html">About ResiDEM</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ResiDEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Analyzing the results</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Result.md" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="analyzing-the-results">
+<h1>Analyzing the results<a class="headerlink" href="#analyzing-the-results" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>The description of the results after running the ResiDEM command to analyze the DED maps is given forthwith.</p>
+<p>The below example shows the command line argument to generate DED maps of bacteriorhodopsin protein for 760 ns time delay
+published by <a class="reference external" href="https://doi.org/10.1126/science.aah3497">Nango et al.,</a>. In this case study, no weights are added, but optional weights can be added,
+more details of which can be found in <a class="reference internal" href="command.html"><span class="std std-doc">command line options</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>bR
+<span class="nb">cd</span><span class="w"> </span>bR
+<span class="c1"># download the reference and 760ns triggered pdb </span>
+residem_pdb_mtz<span class="w"> </span>-r<span class="w"> </span>5b6v<span class="p">;</span><span class="w"> </span>residem_pdb_mtz<span class="w"> </span>-r<span class="w"> </span>5b6x<span class="w"> </span><span class="c1"># pdb code of dark and 760ns respectively</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tree<span class="w"> </span><span class="c1"># If you see the file in the folder we see the following</span>
+.
+<span class="p">|</span>--<span class="w"> </span>5b6v.mtz
+<span class="p">|</span>--<span class="w"> </span>5b6v.pdb
+<span class="p">|</span>--<span class="w"> </span>5b6x.mtz
+<span class="sb">`</span>--<span class="w"> </span>5b6x.pdb
+</pre></div>
+</div>
+<section id="running-the-command">
+<h2>Running the command<a class="headerlink" href="#running-the-command" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>residem<span class="w"> </span>-r<span class="w"> </span>5b6v.pdb<span class="w"> </span>-m<span class="w"> </span>5b6v.mtz<span class="w"> </span>-t<span class="w"> </span>5b6x.mtz<span class="w"> </span>-s<span class="w"> </span><span class="m">3</span>.5<span class="w"> </span><span class="c1"># here, 3.5 σ is taken to reproduce image similar</span>
+<span class="c1"># to the published data. Default is 3.0 σ in tool. </span>
+</pre></div>
+</div>
+<p>It takes <a class="reference download internal" download="" href="_downloads/b976ea9996ba250b570769933502e047/Time_1.png"><span class="xref download myst">~5 minutes</span></a> depending on the number of available processors,
+the time may also vary for different proteins, which depends on the size of the unit cell.</p>
+</section>
+<section id="overview-of-the-results">
+<h2>Overview of the results<a class="headerlink" href="#overview-of-the-results" title="Link to this heading"></a></h2>
+<p>After running the calculations, if we again see the list of contents in the directory, we see the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+<span class="p">|</span>--<span class="w"> </span>5b6v.mtz
+<span class="p">|</span>--<span class="w"> </span>5b6v.pdb
+<span class="p">|</span>--<span class="w"> </span>5b6x.mtz
+<span class="p">|</span>--<span class="w"> </span>5b6x.pdb
+<span class="sb">`</span>--<span class="w"> </span>Data_folder_0
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>Difference_map_weighted_all.mtz
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>Difference_structure_factor_distribution.pdf
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>F_obs_minus_F_obs.ccp4
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>F_obs_minus_F_obs_hekstra_weight.ccp4
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>F_obs_minus_F_obs_ren_weight.ccp4
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>F_obs_minus_F_obs_ursby_weight.ccp4
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>R_iso_CC_iso.pdf
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>Residem.log
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>Wilson_plot_comparison.pdf
+<span class="w">    </span><span class="p">|</span>--<span class="w"> </span>input.phil
+<span class="w">    </span><span class="sb">`</span>--<span class="w"> </span>map_dump_default
+<span class="w">        </span><span class="p">|</span>--<span class="w"> </span>chain_A_U
+<span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>Atom_peak_height_chain_A_U.pdf
+<span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>Residual_peak_height.csv
+<span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>--<span class="w"> </span>Residual_peak_height_mean_chain_A_U.pdf
+<span class="w">        </span><span class="p">|</span>--<span class="w"> </span>chain_A_U_csv
+<span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_common_both_postv_n_negtv_chain_A_U.csv
+<span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_negative_chain_A_U.csv
+<span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_positive_chain_A_U.csv
+<span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>--<span class="w"> </span>map_dump_full_positive_negative_chain_A_U.csv
+<span class="w">        </span><span class="sb">`</span>--<span class="w"> </span>chain_A_U_json
+<span class="w">            </span><span class="p">|</span>--<span class="w"> </span>map_dump_common_both_postv_n_negtv_chain_A_U.json
+<span class="w">            </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_negative_chain_A_U.json
+<span class="w">            </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_positive_chain_A_U.json
+<span class="w">            </span><span class="sb">`</span>--<span class="w"> </span>map_dump_full_positive_negative_chain_A_U.json
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">input.phil</span></code> is a Python Hierarchial Input Language (phil) file containing all the input argument which can be used for reproduction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Difference_map_weighted_all.mtz</span></code> mtz file contains difference map without and
+with weight for all the implemented weights and the phase of the reference model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Difference_structure_factor_distribution.pdf</span></code> file contains distribution of the Difference structure factor
+with and without weights plotted as a function of signal-to-noise ratio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*.ccp4</span></code> The DED maps in CCP4 format for various weights.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">R_iso_CC_iso.pdf</span></code> file contains a plot representing <span class="math notranslate nohighlight">\(R_{iso}\)</span> and <span class="math notranslate nohighlight">\(CC_{iso}\)</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Residem.log</span></code> is a log file containing all the details.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Wilson_plot_comparison.pdf</span></code> contains Wilson plot of normalized intensities before and after scaling.
+Ideally the slope of the intensities  should be similar.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map_dump_default</span></code> folder contains results of difference peak details for individual chains.</p></li>
+</ul>
+<p>For example the file folder <code class="docutils literal notranslate"><span class="pre">map_dump_default</span></code> contains another folder <code class="docutils literal notranslate"><span class="pre">chain_A_U</span></code>. Here, <code class="docutils literal notranslate"><span class="pre">A_U</span></code> means chain A(uppercase),
+the chain can also be lower case like chain a.
+The tool will generate <code class="docutils literal notranslate"><span class="pre">Atom_peak_height_chain_A_U.pdf</span></code> and <code class="docutils literal notranslate"><span class="pre">Residual_peak_height_mean_chain_A_U.pdf</span></code>, where the
+mean difference density around a atom and peak is calculated for the entire protein. This method is similar
+to the method proposed by <a class="reference external" href="https://doi.org/10.1063/1.5126921">maptool</a>.</p>
+<p>Bacteriorhodopsin(bR) is a proton pump driven by the photoisomerization of a retinal chromophore (RET 300 )
+that is covalently attached by Schiff base to a Lys residue. <a class="reference external" href="https://doi.org/10.1126/science.aah3497">Nango et al.</a> used
+time-resolved serial femto-second crystallography at an x-ray free electron laser
+to provide 13 structural snapshots of the conformational changes that occur in the nanoseconds
+to milliseconds after photo-activation. Figure 1(a) corresponds to the 760ns triggered state in bR, this image corresponds to <a class="reference external" href="https://doi.org/10.1126/science.aah3497">Figure 6 in their paper</a>.
+Figure 1(b) corresponds to DED map of same 760ns generated by ResiDEM, which could highlight identical features.</p>
+<p><img alt="BR_image" src="_images/bR_paper.png" />
+Figure 1: DED maps for 760ns triggered state (a) taken from <a class="reference external" href="https://doi.org/10.1126/science.aah3497">Nango et al.</a> paper at 3.5 σ
+(b) generated from map obtained from ResiDEM using pymol at 3.5 σ.</p>
+<p>Isomerism of the Retinal also disturbs its planarity, which could be visible from difference density near C20 atom of retinal(RET 300).</p>
+<p>If we see the one dimensional atom wise representation of the difference density for RET 300 (<code class="docutils literal notranslate"><span class="pre">Atom_peak_height_chain_A_U.pdf</span></code>) as shown in Figure 2,
+we could see  positive difference density associated to C20 and negative density associated to atoms (12-15) connected to LYS 216 via Schiff base.
+The image of the Schiff base can be referred to in Figure 1 of  <a class="reference external" href="https://doi.org/10.1126/science.aah3497">Nango et al.</a> paper.</p>
+<p><img alt="atom_wise_representation" src="_images/atom_based_density_profile.png" /></p>
+<p>Figure 2: One-dimensional representation of density values in the difference map around (a threshold radius of 2 Å)
+each of atoms in the retinal, shown for the data at the time period of 760 ns structure.
+The green point indicates the mean density value near the atom,
+the red point shows the mean density value near the atom, and the blue points indicates the density values closest to the atom.
+The emphasized texts show the atom positions where there are strong difference densities around them.</p>
+<p>If we see the residue wise mean from all atoms (<code class="docutils literal notranslate"><span class="pre">Residual_peak_height_mean_chain_A_U.pdf</span></code>), it can identify the major contributors.
+Figure 3 plots mean contribution of difference density for all residues.</p>
+<p><img alt="residue_wise_representation" src="_images/Residue_wise_representation.png" /></p>
+<p>Figure 3: Residue-based one-dimensional representation of the density values in the difference map
+at the time period of 760 ns.  The green point represents the mean density around the residue
+(voxels within a threshold radius of 2Å from the atoms in the residue),
+the red point signifies the mean density around the residue, and the blue
+points show the average of the density values closest to each atom within each residue.
+The emphasized texts show the residue positions where there are strong difference densities around them.</p>
+<p>Using clustering techniques,ResiDEM could also identify all the residues associated with the difference density as shown in Figure 4.
+The result of the difference density estimates are given in the files <code class="docutils literal notranslate"><span class="pre">map_dump_common_both_postv_n_negtv_chain_A_U</span></code>
+,<code class="docutils literal notranslate"><span class="pre">map_dump_full_negative_chain_A_U</span></code>,<code class="docutils literal notranslate"><span class="pre">map_dump_full_positive_chain_A_U</span></code>,<code class="docutils literal notranslate"><span class="pre">map_dump_full_positive_negative_chain_A_U</span></code> either in csv or json format.</p>
+<p><img alt="residem_coot" src="_images/bR_coot.png" />
+Figure 4: Overview of  ResiDEM identifying the residues that are
+involved in the electron density changes observed in isomorphous difference maps.
+A GUI, an add-on to Coot, is provided to visualize the difference densities and associated list of atoms.</p>
+<p>Figure 4 shows a representation of DED maps in coot. It can be reproduced using the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>residem_coot<span class="w"> </span>-r<span class="w"> </span>5b6v.pdb<span class="w"> </span>-m<span class="w"> </span>Data_folder_0/F_obs_minus_F_obs.ccp4<span class="w"> </span>
+</pre></div>
+</div>
+<p><img alt="residem_coot" src="_images/residem_coot.gif" /></p>
+<p>Figure 5: Animation of procedure to open the json file to preview the location of the associated residues in DED maps,
+A clearer version can be found <a class="reference download internal" download="" href="_downloads/952cbf3f5ddb4c32164b1e53c0873fb8/My_Movie.mp4"><span class="xref download myst">here</span></a> .</p>
+<p>The clustering could identify negative difference density associated with C14 atom and
+positive density associated with C20 for RET 300. In clustering method, one blob is associated with one atom which reduces
+the overall complexity. It might or might not help to pinpoint all associated atoms as one of
+its <a class="reference internal" href="Limitation.html"><span class="std std-doc">limitations</span></a> unlike atom-wise representation. On the other hand, given that DED maps
+are noisy in general, atom-wise representation can highlight noise which might makes interpretation difficult from the plot.
+Further analysis of the clustering base results can help reduce to identify significant contributors alone.</p>
+</section>
+<section id="one-dimensional-analysis-of-difference-density-obtained-from-clustering">
+<h2>One dimensional analysis of difference density obtained from clustering.<a class="headerlink" href="#one-dimensional-analysis-of-difference-density-obtained-from-clustering" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note the name of the folder <code class="docutils literal notranslate"><span class="pre">chain_A_U_csv</span></code> might change depending on the chain identifiers present in the pdb.</p>
+</div>
+<p>Now, any of the files in the folder <code class="docutils literal notranslate"><span class="pre">chain_A_U_csv</span></code> can be selected to plot one dimensional plot
+representing residue wise difference density. Here, let us take <code class="docutils literal notranslate"><span class="pre">map_dump_full_positive_negative_chain_A_U.csv</span></code>
+file which has difference density contribution from both positive and negative regions in DED map for particular residue.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Data_folder_0/map_dump_default/chain_A_U_csv/
+residem_svd_csv<span class="w"> </span>-r<span class="w"> </span>../../../5b6v.pdb<span class="w"> </span>-f<span class="w">  </span>map_dump_default/chain_A_U_csv/map_dump_full_positive_negative_chain_A_U.csv<span class="w"> </span>-t<span class="w"> </span>density
+</pre></div>
+</div>
+<p>A dict file can also be supplemented, so that the name of the file can be given, or else a generic name <code class="docutils literal notranslate"><span class="pre">Time_</span></code> will be given.</p>
+<p>For the given example, a dict can be created as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat&gt;&gt;time_and_file_name.txt<span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">&quot;760ns&quot;:&quot;map_dump_full_positive_negative_chain_A_U.csv&quot;</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+<p>A similar file can be created and supplemented with modified command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>residem_svd_csv<span class="w"> </span>-r<span class="w"> </span>../../../5b6v.pdb<span class="w"> </span>--dict<span class="w"> </span>time_and_file_name.txt<span class="w"> </span>-t<span class="w"> </span>density<span class="w"> </span>--ew<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>From that you can see two files  <code class="docutils literal notranslate"><span class="pre">one_dimensional_linear_plot.pdf</span></code> and <code class="docutils literal notranslate"><span class="pre">Difference_density_network_CA_nolabel.pdf</span></code>.</p>
+<p>One shows the one-dimensional plot of residues with normalized difference density for 760ns.</p>
+<p><img alt="residue wise representation" src="_images/one_dimensional_linear_plot.png" />
+Figure 6: One-dimensional representation of the normalized electron density sum (𝜌) as a function of time for
+residues identified at Δt = 760 ns.</p>
+<p>The same residual estimate can also be plotted as network representation.</p>
+<p><img alt="Network representation" src="_images/Difference_density_network_CA_nolabel.png" />
+Figure 7: Illustration of the protein structure, where each residue is represented as a circular node. The size of
+each node corresponds to the normalized absolute difference electron density values associated with the residue
+during the time period Δt = 760 ns, for negative values. The connections between nodes indicates the proximity
+between residues, using a default threshold of 10 Å. The edges are color-coded to reflect the length of the
+distance, highlighting closer pairs. For the residues with associated difference densities, the connecting edges
+are highlighted with a width that is twice that of the other edges. Nodes with a difference electron sum value
+below 0.02 are represented with the smallest size, while those between 0.02 and 0.2 have a medium size, and
+nodes with higher values have a larger size. This differentiation allows for distinguishing the contribution of
+each node to the difference electron density.</p>
+</section>
+<section id="collective-analysis-of-results-for-various-delayed-time-period">
+<h2>Collective analysis of results for various delayed time period<a class="headerlink" href="#collective-analysis-of-results-for-various-delayed-time-period" title="Link to this heading"></a></h2>
+<p>Using the results from ResiDEM, we further analyzed the difference electron density map of the (bR) experimental data for 13 different time delays.
+There are two python scripts which can be used to run to reproduce images as in the <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a> which also
+calculates the analysis of collective dynamics of bR.</p>
+<p>The commands are given in the <a class="reference internal" href="Quickstart.html"><span class="std std-doc">Quickstart session</span></a> section.</p>
+<p>After running the command, we can plot a collective network
+representation and Pearson correlation for collective difference density.</p>
+<p><img alt="Pearson" src="_images/Pearson_bR.png" />
+Figure 8: Pearson correlation coefficient analysis of residues with prominent difference density over time:
+the analysis includes residues with dominant difference density at Δt = 760 ns, as reported by <a class="reference external" href="https://doi.org/10.1126/science.aah3497">Nango et al.</a>.
+Correlations are calculated for the time-series data ranging from Δt = 16 ns to 1.725 ms.
+(a) The Pearson correlation coefficients between the electron sums of residues at each time point
+as the absolute cumulative sums of both positive and negative density cluster regions.
+(b) A stick representation of the residues with significant difference density.</p>
+<p>Figure 8 can be seen in  can be seen in the file <code class="docutils literal notranslate"><span class="pre">SVD/all/correlation_plot.pdf</span></code>.
+More details about Pearson correlation can be referred to in <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>.</p>
+<p><img alt="network_gif" src="_images/network_animation.gif" /></p>
+<p>Figure 9: Illustration of the protein structure, where each residue is represented as a circular node. The size of
+each node corresponds to the normalized absolute difference electron density values associated with the residue
+during the time period Δt = 16ns - 1.725ms, for negative values. The connections between nodes indicate the proximity
+between residues, using a default threshold of 10 Å. The edges are color-coded to reflect the length of the
+distance, highlighting closer pairs. For the residues with associated difference densities, the connecting edges
+are highlighted with a width that is twice that of the other edges. Nodes with a difference electron sum value
+below 0.02 are represented with the smallest size, while those between 0.02 and 0.2 have a medium size, and
+nodes with higher values have a larger size. This differentiation allows for distinguishing the contribution of
+each node to the difference electron density.</p>
+<p>Overall network representation can give an overview of how the difference density varies in different time delays.</p>
+<script>
+document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.setAttribute('target', '_blank');
+});
+</script>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Algorithm.html" class="btn btn-neutral float-left" title="Algorithm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="command.html" class="btn btn-neutral float-right" title="Command Line options and arguments" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sriram Srinivasa Raghavan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

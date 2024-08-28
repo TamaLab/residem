@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start &mdash; Residem</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=a1637f0b"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Algorithm" href="Algorithm.html" />
+    <link rel="prev" title="Installation of ResiDEM" href="Installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ResiDEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation of ResiDEM</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scaling">Scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#isomorphism-idicators">Isomorphism idicators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cross-r-factor-r-iso-and-isomorphism-indicating-correlation-coefficient-cc-iso">Cross -R-Factor ( <span class="math notranslate nohighlight">\(R_{iso}\)</span>) and  Isomorphism indicating correlation coefficient (<span class="math notranslate nohighlight">\(CC_{iso}\)</span>).</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#weights">Weights</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#urbsy-weighting-scheme">1. Urbsy weighting scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ren-weighting-scheme">2. Ren Weighting scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modified-ren-weight-hekstra-weighting-scheme">3. Modified Ren weight/ Hekstra weighting scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-representation-of-weight">4. General representation of weight</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quick-description-about-the-outputs">Quick description about the outputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Algorithm.html">Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Result.html">Analyzing the results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command.html">Command Line options and arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Limitation.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="About.html">About ResiDEM</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ResiDEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Quickstart.md" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>Getting started with <code class="docutils literal notranslate"><span class="pre">ResiDEM</span></code>.</p>
+<p>The main command line utility of the ResiDEM is <code class="docutils literal notranslate"><span class="pre">residem</span></code>.
+This utility generates isomorphous difference density map and identifies the residues associated with difference density.
+The basic command line argument to run the calculation to generate isomorphous difference density (DED) map  and identification is as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>residem<span class="w"> </span>-r<span class="w"> </span>5b6v.pdb<span class="w"> </span>-m<span class="w"> </span>5b6v.mtz<span class="w"> </span>-t<span class="w"> </span>5b6x.mtz
+residem<span class="w"> </span>-r<span class="w"> </span>5b6v.pdb<span class="w"> </span>-m<span class="w"> </span>5b6v.mtz<span class="w"> </span>-t<span class="w"> </span>5b6x.mtz<span class="w"> </span>--scale<span class="w"> </span>aniso/iso/no<span class="w"> </span>-w<span class="w"> </span>ursby/ren/hekstra/default<span class="w"> </span>-sm<span class="w"> </span>cctbx/ccp4<span class="w"> </span>
+</pre></div>
+</div>
+<p>In the above example, DED map is calculated for 760ns triggered structure (pdb id: 5b6x) with respect to dark state structure (pdb id: 5b6v).</p>
+<section id="inputs">
+<h2>Inputs<a class="headerlink" href="#inputs" title="Link to this heading"></a></h2>
+<p>It requires a reference state pdb <code class="docutils literal notranslate"><span class="pre">-r</span></code>, an reference state <code class="docutils literal notranslate"><span class="pre">-m</span></code> and triggered state <code class="docutils literal notranslate"><span class="pre">-t</span></code> mtz file containing
+structure factor amplitudes or intensities. The reference state,triggered state
+mtz should also have a column associated with structure factor amplitudes and its associated sigma “FP,SIGFP” or
+intensities with column name “I,SIGI”.</p>
+</section>
+<section id="scaling">
+<h2>Scaling<a class="headerlink" href="#scaling" title="Link to this heading"></a></h2>
+<p>Isomorphous difference density map rely on proper scaling of the  reference state observed structure factor <span class="math notranslate nohighlight">\(|F_{obs}^{ref}|\)</span>
+and triggered state observed structure factor <span class="math notranslate nohighlight">\(|F_{obs}^{t}|\)</span> .
+This is done through resolution dependent scaling which can be either isotropic or anisotropic.
+The tool has a few options to scale the reference and triggered state structure factor.
+This consists of scaling using either cctbx scaling method or using ccp4 based scaleit method.
+There are three options such as <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">no</span></code> scaling, <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">iso</span></code> isotropic scaling or <code class="docutils literal notranslate"><span class="pre">--scale</span> <span class="pre">aniso</span></code>.
+The scaling can be done either using inbuilt method using <code class="docutils literal notranslate"><span class="pre">-sm</span> <span class="pre">cctbx</span></code> library or using <code class="docutils literal notranslate"><span class="pre">-sm</span> <span class="pre">ccp4</span></code> scaleit.
+After scaling, the time dependent intensities,  Wilson Plots of <span class="math notranslate nohighlight">\(|F_{obs}^{t}|^2\)</span> and
+the <span class="math notranslate nohighlight">\(|F_{obs}^{ref}|^2\)</span> have the approximately same slopes.</p>
+<p><img alt="Wilson plot scaling" src="_images/Wilson_plot_comparison.jpg" />
+Figure 1: Wilson plot of 760ns bR Intensities before and after anisotropic scaling.</p>
+</section>
+<section id="isomorphism-idicators">
+<h2>Isomorphism idicators<a class="headerlink" href="#isomorphism-idicators" title="Link to this heading"></a></h2>
+<section id="cross-r-factor-r-iso-and-isomorphism-indicating-correlation-coefficient-cc-iso">
+<h3>Cross -R-Factor ( <span class="math notranslate nohighlight">\(R_{iso}\)</span>) and  Isomorphism indicating correlation coefficient (<span class="math notranslate nohighlight">\(CC_{iso}\)</span>).<a class="headerlink" href="#cross-r-factor-r-iso-and-isomorphism-indicating-correlation-coefficient-cc-iso" title="Link to this heading"></a></h3>
+<p>After scaling, an estimate can be obtained quantitatively to identify how similar the reference state data is
+isomorphous to the triggered state data. The <span class="math notranslate nohighlight">\(R_{iso}\)</span> is the mean fractional deviation between the observed amplitudes.</p>
+<div class="math notranslate nohighlight">
+\[R_{iso} = \frac{\Sigma |F_{obs}^{ref} - F_{obs}^{t}|}{\frac{\Sigma |F_{obs}^{ref} + F_{obs}^{t}|}{2}}\]</div>
+<p><span class="math notranslate nohighlight">\(R_{iso}\)</span> can be obtained by summing overall pairs of common reflections observed in both the data sets.
+<span class="math notranslate nohighlight">\(R_{iso}\)</span> values below 10% produces a clear difference density while <span class="math notranslate nohighlight">\(R_{iso}\)</span> up to 25% can still
+provide interpretable difference density[<a class="reference external" href="https://doi.org/10.1016/S0076-6879(03)74007-5">1</a>].</p>
+<p>Analogous equation for Isomorphism indicating correlation coefficient <span class="math notranslate nohighlight">\(CC_{iso}\)</span> is calculated by:</p>
+<div class="math notranslate nohighlight">
+\[CC_{iso} = \frac{\Sigma \left[ (F_{obs}^{ref} -\overline{F_{obs}^{ref}} ) (F_{obs}^{t} - \overline{F_{obs}^{t}})\right]}
+{\sqrt{\Sigma(F_{obs}^{ref} -\overline{F_{obs}^{ref}} )^2 * \Sigma (F_{obs}^{t} -\overline{F_{obs}^{t}} )^2}}\]</div>
+<p>Higher <span class="math notranslate nohighlight">\(CC_{iso}\)</span> indicates higher Isomorphic correlation.</p>
+<p><img alt="R_iso_CC_iso" src="_images/R_iso_CC_iso.png" />
+Figure 2:  Plot showing <span class="math notranslate nohighlight">\(R_{iso}\)</span> and <span class="math notranslate nohighlight">\(CC_{iso}\)</span>of 760ns bR data.</p>
+</section>
+</section>
+<section id="weights">
+<h2>Weights<a class="headerlink" href="#weights" title="Link to this heading"></a></h2>
+<p>DED maps can be noisy, and efforts are made to identify the source of the noise which might affect it.
+<a class="reference external" href="https://doi.org/10.1107/S0108767397004522">Ursby and Bourgeois(1997)</a> introduced weighting scheme to extract the best difference map out of poorly measured data
+and its associated errors in the structural model required to calculate <span class="math notranslate nohighlight">\(\phi_{ref}\)</span>. Two main errors associated to Difference structure factor (DSF) that are determined from
+(i) from large amplitudes as well as (ii) from poorly measured amplitudes with large experimental errors [<a class="reference external" href="https://doi.org/10.1063/4.0000196">2</a>]. By incorporating Bayesian statistics
+to down weigh large difference or those with large experimental errors, <a class="reference external" href="https://doi.org/10.1107/S0108767397004522">Ursby and Bourgeois(1997)</a> introduced weighting scheme to
+mitigate the noise in DED maps.</p>
+<section id="urbsy-weighting-scheme">
+<h3>1. Urbsy weighting scheme<a class="headerlink" href="#urbsy-weighting-scheme" title="Link to this heading"></a></h3>
+<p>The weighting scheme implemented by <a class="reference external" href="https://doi.org/10.1107/S0108767397004522">Ursby and Bourgeois(1997)</a> is given by:</p>
+<div class="math notranslate nohighlight">
+\[ω=\frac{εσ_D^2/2}{σ^2_{(obs,F)} + σ'^2_{(obs,F)} +εσ_D^2/2}
+\]</div>
+<p>Where ω is the weight, ε is the correlation factor for the expected intensity in
+reciprocal lattice zone (multiplicity factor)[<a class="reference external" href="https://doi.org/10.1107/s0567739477001272.">3</a>,<a class="reference external" href="https://doi.org/10.1107/s0567739476002064">4</a>].
+<span class="math notranslate nohighlight">\(σ^2_{(obs,F)}\)</span> is the variance of <span class="math notranslate nohighlight">\(F\)</span> in the parent (reference structure) and <span class="math notranslate nohighlight">\(σ'^2_{(obs,F)}\)</span> is the variance of the related (triggered) structure.
+<span class="math notranslate nohighlight">\(σ_D^2\)</span> is obtained by <span class="math notranslate nohighlight">\(n\overline{(F'-F)^2)}/ε\)</span> where <span class="math notranslate nohighlight">\(\overline{(F'-F)^2} )\)</span> denotes the mean of <span class="math notranslate nohighlight">\((F'-F)^2\)</span> and
+n=1 for centric reflections and 2 for acentric reflections respectively.
+Further, to reduce the overestimation of <span class="math notranslate nohighlight">\(σ_D^2\)</span>, deconvoluted form may be used[<a class="reference external" href="https://doi.org/10.1107/S0108767397004522">5</a>].
+Deconvoluted form is achieved by subtracting <span class="math notranslate nohighlight">\(\overline{σ^2_{(obs,F)}+σ'^2_{(obs,F)}}\)</span> from <span class="math notranslate nohighlight">\((F'-F)^2\)</span>but not
+letting <span class="math notranslate nohighlight">\(σ_D^2\)</span> less than <span class="math notranslate nohighlight">\(n\overline{(F'-F)^2)}/2ε\)</span>,
+i.e., The non-deconvoluted and deconvoluted version of <span class="math notranslate nohighlight">\(σ_D^2\)</span> are:</p>
+<div class="math notranslate nohighlight">
+\[σ_{ND}^2 = n\overline{(F'-F)^2)}/ε\]</div>
+<div class="math notranslate nohighlight">
+\[σ_{D}^2 = n\overline{(F'-F)^2)} - \overline{(σ^2_{(obs,F)}+σ'^2_{(obs,F)})}/ε\]</div>
+<p><code class="docutils literal notranslate"><span class="pre">if</span></code> <span class="math notranslate nohighlight">\(σ_{D}^2 \geq σ_{ND}^2/2\)</span></p>
+<div class="math notranslate nohighlight">
+\[ω=\frac{εσ_D^2/2}{σ^2_{(obs,F)} + σ'^2_{(obs,F)} +εσ_D^2/2}\]</div>
+<p><code class="docutils literal notranslate"><span class="pre">else</span></code></p>
+<div class="math notranslate nohighlight">
+\[    ω=\frac{εσ_{ND}^2/2}{σ^2_{(obs,F)} + σ'^2_{(obs,F)} +εσ_{ND}^2/2}\]</div>
+</section>
+<section id="ren-weighting-scheme">
+<h3>2. Ren Weighting scheme<a class="headerlink" href="#ren-weighting-scheme" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://doi.org/10.1021/bi0107142">Ren et al.</a> simplified the Ursby weighting scheme and given as follows:</p>
+<div class="math notranslate nohighlight">
+\[ω=\left[1 + \frac{\Delta F^2}{\langle|\Delta F|\rangle^2} + \frac{σ_{\Delta F}^2}{\langle σ_{\Delta F}\rangle^2} \right]^{-1}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\sigma_{\Delta F} = \sqrt{{\sigma^{\text{obs}}_{\text{ref}}}^2 + {\sigma^{\text{obs}}_{t}}^2}
+\]</div>
+</section>
+<section id="modified-ren-weight-hekstra-weighting-scheme">
+<h3>3. Modified Ren weight/ Hekstra weighting scheme<a class="headerlink" href="#modified-ren-weight-hekstra-weighting-scheme" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://doi.org/10.1021/bi0107142">Ren et al.</a> was further modified by <a class="reference external" href="https://doi.org/10.1016/S0006-3495(03)75018-8">Schmidt et al.,</a>
+where mean of squares is taken instead of square of mean in denominator term. <a class="reference external" href="https://doi.org/10.1038/nature2057">Hekstra et al.,</a> also use the modified Ren weight with some modifications in second term.
+The general representation of the modified Ren weight is given by:</p>
+<div class="math notranslate nohighlight">
+\[ω=\left[1 + \frac{\Delta F^2}{\langle|\Delta F|^2\rangle} + \alpha \frac{σ_{\Delta F}^2}{\langle σ_{\Delta F}^2\rangle} \right]^{-1}
+\]</div>
+<p><a class="reference external" href="https://doi.org/10.1016/S0006-3495(03)75018-8">Schmidt et al.,</a>  uses <span class="math notranslate nohighlight">\(\alpha =1\)</span> while <a class="reference external" href="https://doi.org/10.1038/nature2057">Hekstra et al.,</a> uses <span class="math notranslate nohighlight">\(\alpha =0.05\)</span></p>
+</section>
+<section id="general-representation-of-weight">
+<h3>4. General representation of weight<a class="headerlink" href="#general-representation-of-weight" title="Link to this heading"></a></h3>
+<p>In general, the weighted isomorphous difference structure factor is given by</p>
+<div class="math notranslate nohighlight">
+\[\Delta F_{hkl,w} = \frac{ω_{hkl}}{\langle ω \rangle} * \Delta F_{hkl}\]</div>
+<div class="math notranslate nohighlight">
+\[σ_{\Delta F_{hkl,w}} = \frac{ω_{hkl}}{\langle ω \rangle} * σ_{\Delta F_{hkl}}\]</div>
+<p>where the term <span class="math notranslate nohighlight">\(\frac{ω_{hkl}}{\langle ω \rangle}\)</span> may correspond weighting scheme such as <code class="docutils literal notranslate"><span class="pre">ursby</span></code>, <code class="docutils literal notranslate"><span class="pre">ren</span></code> and modified ren (<code class="docutils literal notranslate"><span class="pre">hekstra</span></code>) with <span class="math notranslate nohighlight">\(\alpha=0.05/1\)</span> as discussed above.</p>
+<p><a class="reference external" href="https://www.science.org/doi/10.1126/science.aah3497">Nango et al.</a> for Bacteriorhodopsin(bR) did not use any weights.
+So, to discuss more about the weight, test case of Photoactive yellow protein (PYP) published by <a class="reference external" href="https://doi.org/10.1038/s41592-019-0628-z">Pandey et al.,</a> is discussed below.</p>
+<p><img alt="Distribution DSF" src="_images/Distribution_DSF.png" /></p>
+<p>Figure 3: Plot showing distribution of amplitude of difference structure factor as a function of signal-to-noise ratio.
+Clearer PDF file for the image can be found <a class="reference download internal" download="" href="_downloads/73a7e87f2cdf6ad1b1275cf56167b1d3/Difference_structure_factor_distribution.pdf"><span class="xref download myst">here</span></a>.</p>
+<p>In Figure 3,  we see the distribution of difference Fourier coefficients plotted with signal-to-noise ratios with and without weight.
+We can see the distribution of the difference structure factor. In the first distribution we can see the <span class="math notranslate nohighlight">\(|\Delta F|\)</span>
+as a function of signal-to-noise  ratio <span class="math notranslate nohighlight">\(|\Delta F|/ σ_{| \Delta F|} \)</span>, in the inset of the plot is the distribution of
+<span class="math notranslate nohighlight">\(|\Delta F| \)</span> vs  <span class="math notranslate nohighlight">\(σ_{| \Delta F|}\)</span>. It can be seen that by using modified Ren weight or <code class="docutils literal notranslate"><span class="pre">hekstra</span></code> weight with alpha=1 by <a class="reference external" href="https://doi.org/10.1016/S0006-3495(03)75018-8">Schmidt et al.,</a>
+is the one which satisfies the condition. This denotes that there are no large amplitudes with large experimental errors (sigma) values,
+and hence is chosen as best weight for PYP.</p>
+<p>The obtained isomorphous difference map (DED) without and with weight is shown in the following figure.</p>
+<p><img alt="DED maps" src="_images/PYP_image.png" /></p>
+<p>Figure 4: DED maps of  PYP protein  with 30ps time delay published by <a class="reference external" href="https://doi.org/10.1038/s41592-019-0628-z">Pandey et al.,</a>. (a) DED map without weight
+(b,c,d and e ) weighted DED map with various weighting scheme such as Ursby,
+modified Ren with alpha = 0.05, modified Ren with alpha =1 and weight implemented by Ren respectively.</p>
+<p>The data associated with PYP can be downloaded from the <a class="reference external" href="https://doi.org/10.1038/s41592-019-0628-z">supplementary data</a> of the <a class="reference external" href="https://doi.org/10.1038/s41592-019-0628-z">published paper</a> and following command can be used to analyse the data.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>residem<span class="w"> </span>-r<span class="w"> </span>dark_HCC_v6.pdb<span class="w"> </span>-m<span class="w"> </span>FOBS_dark1.mtz<span class="w"> </span>-t<span class="w"> </span>FOBS_30ps.mtz<span class="w"> </span>-rl<span class="w">  </span><span class="s2">&quot;F_DARK,SIGF_DARK&quot;</span><span class="w"> </span>-tl<span class="w"> </span><span class="s2">&quot;F_30ps,SIGF_30ps&quot;</span><span class="w"> </span>-fl<span class="w"> </span><span class="s2">&quot;FC_DARK,PHIC_DARK&quot;</span><span class="w">  </span>-w<span class="w"> </span>hekstra<span class="w"> </span>-ws<span class="w"> </span><span class="m">0</span>.05
+<span class="c1"># This will generate Figure 3 in PDF format. </span>
+<span class="c1"># in General the -ws term which corresponds to alpha has to be set to be 1. </span>
+residem<span class="w"> </span>-r<span class="w"> </span>dark_HCC_v6.pdb<span class="w"> </span>-m<span class="w"> </span>FOBS_dark1.mtz<span class="w"> </span>-t<span class="w"> </span>FOBS_30ps.mtz<span class="w"> </span>-rl<span class="w">  </span><span class="s2">&quot;F_DARK,SIGF_DARK&quot;</span><span class="w"> </span>-tl<span class="w"> </span><span class="s2">&quot;F_30ps,SIGF_30ps&quot;</span><span class="w"> </span>-fl<span class="w"> </span><span class="s2">&quot;FC_DARK,PHIC_DARK&quot;</span><span class="w">  </span>-w<span class="w"> </span>hekstra<span class="w"> </span>-ws<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>In both the cases, the program could identify the chromosphere (HCC-<a class="reference download internal" download="" href="_downloads/e97fb2b14d16dacfd795ebb9fa960c01/one_dimensional_linear_plot.pdf"><span class="xref download myst">69</span></a>)  with C2-C3 double bond having the highest difference density contribution.</p>
+</section>
+<section id="quick-description-about-the-outputs">
+<h3>Quick description about the outputs<a class="headerlink" href="#quick-description-about-the-outputs" title="Link to this heading"></a></h3>
+<p>After running the previous command lines and if you see in <code class="docutils literal notranslate"><span class="pre">tree</span></code> command you might  get the following.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+<span class="p">|</span>--<span class="w"> </span>Data_folder_0
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_default
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>chain_A_U
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>Atom_peak_height_chain_A_U.pdf
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>Residual_peak_height.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>--<span class="w"> </span>Residual_peak_height_mean_chain_A_U.pdf
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>--<span class="w"> </span>chain_X_U
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>--<span class="w"> </span>Atom_peak_height_chain_X_U.pdf
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>--<span class="w"> </span>Residual_peak_height.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">       </span><span class="sb">`</span>--<span class="w"> </span>Residual_peak_height_mean_chain_X_U.pdf
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_hekstra
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>chain_A_U_csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_common_both_postv_n_negtv_chain_A_U.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_negative_chain_A_U.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_positive_chain_A_U.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>--<span class="w"> </span>map_dump_full_positive_negative_chain_A_U.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>chain_A_U_json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_common_both_postv_n_negtv_chain_A_U.json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_negative_chain_A_U.json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_positive_chain_A_U.json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>--<span class="w"> </span>map_dump_full_positive_negative_chain_A_U.json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>chain_X_U_csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_common_both_postv_n_negtv_chain_X_U.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_negative_chain_X_U.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_positive_chain_X_U.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>--<span class="w"> </span>map_dump_full_positive_negative_chain_X_U.csv
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>--<span class="w"> </span>chain_X_U_json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>--<span class="w"> </span>map_dump_common_both_postv_n_negtv_chain_X_U.json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_negative_chain_X_U.json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>--<span class="w"> </span>map_dump_full_positive_chain_X_U.json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">       </span><span class="sb">`</span>--<span class="w"> </span>map_dump_full_positive_negative_chain_X_U.json
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>Difference_map_weighted_all.mtz
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>Difference_structure_factor_distribution.pdf
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>F_obs_minus_F_obs.ccp4
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>F_obs_minus_F_obs_hekstra_weight.ccp4
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>F_obs_minus_F_obs_ren_weight.ccp4
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>F_obs_minus_F_obs_ursby_weight.ccp4
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>R_iso_CC_iso.pdf
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>Residem.log
+<span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>Wilson_plot_comparison.pdf
+<span class="p">|</span><span class="w">   </span><span class="sb">`</span>--<span class="w"> </span>input.phil
+<span class="p">|</span>--<span class="w"> </span>FOBS_30ps.mtz
+<span class="p">|</span>--<span class="w"> </span>FOBS_dark1.mtz
+<span class="p">|</span>--<span class="w"> </span>dark_HCC_v6.pdb
+<span class="p">|</span>--<span class="w"> </span>final_tree.md
+<span class="p">|</span>--<span class="w"> </span>initial_tree.md
+<span class="sb">`</span>--<span class="w"> </span>readme.md
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">input.phil</span></code> is a Python Hierarchial Input Language (phil) file containing all the input argument which can be used for reproduction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Difference_map_weighted_all.mtz</span></code> mtz file contains difference map without and
+with weight for all the implemented weights and the phase of the reference model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Difference_structure_factor_distribution.pdf</span></code> file contains distribution of the Difference structure factor
+with and without weights plotted as a function of signal-to-noise ratio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*.ccp4</span></code> The DED maps in CCP4 format for various weights.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">R_iso_CC_iso.pdf</span></code> file contains a plot representing <span class="math notranslate nohighlight">\(R_{iso}\)</span> and <span class="math notranslate nohighlight">\(CC_{iso}\)</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Residem.log</span></code> is a log file containing all the details.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Wilson_plot_comparison.pdf</span></code> contains Wilson plot of normalized intensities before and after scaling.
+Ideally the slope of the intensities  should be similar.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map_dump_default,map_dump_hekstra</span></code> folder contains results of difference peak details for individual chains.</p></li>
+</ul>
+<p>A detailed description of the content of the results are discussed in <a class="reference internal" href="Result.html"><span class="std std-doc">results</span></a> and <a class="reference internal" href="command.html"><span class="std std-doc">command line</span></a> sessions.</p>
+<script>
+document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.setAttribute('target', '_blank');
+});
+</script>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Installation.html" class="btn btn-neutral float-left" title="Installation of ResiDEM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Algorithm.html" class="btn btn-neutral float-right" title="Algorithm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sriram Srinivasa Raghavan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
