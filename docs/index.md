@@ -60,7 +60,7 @@ Clustering](https://doi.org/10.1021/acs.jcim.4c00858)
 :class: note
 ```
 ResiDEM is composed of a few command line utilities. A detailed description of the [command line](command.md) utilities are found [here](command.md). 
-The main function of the tool to identify the residues associated with difference density in isomorphous difference density map. 
+The main function of the tool is to identify the residues associated with difference density in isomorphous difference density map. 
 It also quantifies the difference density in single and multiple time periods collected at different experimental time delays.
 
 
