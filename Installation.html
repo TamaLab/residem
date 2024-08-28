@@ -144,15 +144,16 @@ isomorphous data sets.</p>
 <p>Testing the tool with Bacteriorhodopsin data.
 There are two python scripts which can be used to run, reproduce images as in the <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
 .
-The name of the scripts are <a class="reference download internal" download="" href="_downloads/d4639bd56288e70ac83c44ccacc54e6d/residem_unit_test.py"><span class="xref download myst">residem_unit_test.py</span></a> and <a class="reference download internal" download="" href="_downloads/01a79cabf38fb5af49a1dbfd501542d4/SVD_unit_test.py"><span class="xref download myst">SVD_unit_test.py</span></a>.
-The main script (<a class="reference download internal" download="" href="_downloads/d4639bd56288e70ac83c44ccacc54e6d/residem_unit_test.py"><span class="xref download myst">residem_unit_test.py</span></a>) can be used to test the tool and reproduce the certain figures as in <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
+The name of the scripts are <code class="docutils literal notranslate"><span class="pre">residem_unit_test.py</span></code> and <code class="docutils literal notranslate"><span class="pre">SVD_unit_test.py</span></code> which are available in tests directory.
+The main script <code class="docutils literal notranslate"><span class="pre">residem_unit_test.py</span></code> can be used to test the tool and reproduce the certain figures as in <a class="reference external" href="https://doi.org/10.1021/acs.jcim.4c00858">published article</a>
 .
 This script computes the isomorphous difference density for Bacteriorhodopsin(bR) for 13 time delays as published by <a class="reference external" href="https://www.science.org/doi/10.1126/science.aah3497">Nango et al.</a></p>
-<p>Single computation approximately takes around 3-5 minutes in personal laptop. The script <a class="reference download internal" download="" href="_downloads/d4639bd56288e70ac83c44ccacc54e6d/residem_unit_test.py"><span class="xref download myst">residem_unit_test.py</span></a>
+<p>Single computation approximately takes around 3-5 minutes in personal laptop. The script <code class="docutils literal notranslate"><span class="pre">residem_unit_test.py</span></code>
 may take some time (~1 hour) to compute for 13 datasets.</p>
 <p>The testing can be done using the following commands.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>residem
-python<span class="w"> </span>reside_unit_test.py
+<span class="nb">cd</span><span class="w"> </span>tests
+python<span class="w"> </span>residem_unit_test.py
 <span class="c1"># after completeion of the above the follwoing can be submitted.</span>
 python<span class="w"> </span>SVD_unit_test.py
 </pre></div>
