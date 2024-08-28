@@ -71,19 +71,20 @@ fi
 Testing the tool with Bacteriorhodopsin data.
 There are two python scripts which can be used to run, reproduce images as in the [published article](https://doi.org/10.1021/acs.jcim.4c00858)
 .
-The name of the scripts are [residem_unit_test.py](residem_unit_test.py) and [SVD_unit_test.py](SVD_unit_test.py).
-The main script ([residem_unit_test.py](residem_unit_test.py)) can be used to test the tool and reproduce the certain figures as in [published article](https://doi.org/10.1021/acs.jcim.4c00858)
+The name of the scripts are `residem_unit_test.py` and `SVD_unit_test.py` which are available in tests directory.
+The main script `residem_unit_test.py` can be used to test the tool and reproduce the certain figures as in [published article](https://doi.org/10.1021/acs.jcim.4c00858)
 .
 This script computes the isomorphous difference density for Bacteriorhodopsin(bR) for 13 time delays as published by [Nango et al.](https://www.science.org/doi/10.1126/science.aah3497)
 
-Single computation approximately takes around 3-5 minutes in personal laptop. The script [residem_unit_test.py](residem_unit_test.py)
+Single computation approximately takes around 3-5 minutes in personal laptop. The script `residem_unit_test.py`
 may take some time (~1 hour) to compute for 13 datasets.
 
 The testing can be done using the following commands.
 
 ```bash
 conda activate residem
-python reside_unit_test.py
+cd tests
+python residem_unit_test.py
 # after completeion of the above the follwoing can be submitted.
 python SVD_unit_test.py
 
