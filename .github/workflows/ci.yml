@@ -1,0 +1,181 @@
+name: CI
+
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  issues: write
+  pull-requests: write
+  statuses: write
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  pull_request: {}
+  workflow_dispatch:
+
+jobs:
+  test_ubuntu:
+    name: Test on Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+          python-version: "3.10.12"
+          auto-update-conda: true
+          use-mamba: true
+
+      - name: Initialize Conda
+        shell: bash -l {0}
+        run: |
+          conda init bash
+          source ~/.bashrc
+          conda create -n residem python=3.10 -y
+          source ~/.bashrc
+
+      - name: Force install dependencies
+        continue-on-error: true
+        run: |
+          source ~/.bashrc
+          conda activate residem
+          full_path=$(which python)
+          base_path=$(dirname $(dirname "$full_path"))
+          echo $base_path
+          conda env update --prefix $base_path --file environment.yml --prune
+          conda install pytest pytest-cov -y
+
+      - name: Install residem with Flit
+        shell: bash -l {0}
+        run: |
+          source ~/.bashrc
+          conda activate residem
+          flit install --deps all --symlink
+
+      - name: Test
+        run: |
+          source ~/.bashrc
+          conda activate residem
+          pytest --color=yes --cov=. --cov-report=xml --cov-report=term-missing --ignore=docs/
+
+      - name: Coverage
+        uses: codecov/codecov-action@v4
+
+  test_macos:
+    name: Test on macOS
+    runs-on: macos-latest
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+          python-version: "3.10.12"
+          auto-update-conda: true
+          use-mamba: true
+
+      - name: Initialize Conda
+        shell: bash -l {0}
+        run: |
+          conda init bash
+          source ~/.bash_profile
+          conda create -n residem python=3.10 -y
+          source ~/.bash_profile
+
+      - name: Force install dependencies
+        continue-on-error: true
+        run: |
+          source ~/.bash_profile
+          conda activate residem
+          full_path=$(which python)
+          base_path=$(dirname $(dirname "$full_path"))
+          echo $base_path
+          conda env update --prefix $base_path --file environment.yml --prune
+          conda install pytest pytest-cov -y
+
+      - name: Install residem with Flit
+        shell: bash -l {0}
+        run: |
+          source ~/.bash_profile
+          conda activate residem
+          flit install --deps all --symlink
+
+      - name: Test
+        run: |
+          source ~/.bash_profile
+          conda activate residem
+          pytest --color=yes --cov=. --cov-report=xml --cov-report=term-missing --ignore=docs/
+
+      - name: Coverage
+        uses: codecov/codecov-action@v4
+
+  deploy:
+    name: Deploy
+    needs: [test_ubuntu, test_macos]
+    if: "success() && startsWith(github.ref, 'refs/tags/')"
+    runs-on: ubuntu-latest
+
+    outputs:
+      deployment_status: ${{ steps.deployment_status.outcome }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniconda-version: "latest"
+          python-version: "3.10.12"
+          auto-update-conda: true
+          use-mamba: true
+
+      - name: Initialize Conda
+        shell: bash -l {0}
+        run: |
+          conda init bash
+          source ~/.bashrc
+
+      - name: Install Flit
+        run: |
+          source ~/.bashrc
+          conda activate residem
+          pip install flit
+
+      - name: Build and publish
+        run: |
+          source ~/.bashrc
+          conda activate residem
+          flit build
+          flit publish
+        env:
+          FLIT_USERNAME: __token__
+          FLIT_PASSWORD: ${{ secrets.PYPI_API_KEY }}
+
+      - name: Create GitHub Release
+        id: deployment_status
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
