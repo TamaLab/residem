@@ -9,9 +9,9 @@ docutils==0.20.1
 h2==4.1.0
 hpack==4.0.0
 hyperframe==6.0.1
-idna==3.7
+idna>=3.7
 imagesize==1.4.1
-Jinja2==3.1.4
+Jinja2>=3.1.4
 livereload==2.7.0
 markdown-it-py==3.0.0
 MarkupSafe==2.1.5
@@ -43,6 +43,6 @@ sphinxcontrib-qthelp==2.0.0
 sphinxcontrib-serializinghtml==1.1.10
 tomli==2.0.1
 tornado==6.4.1
-urllib3==2.2.2
+urllib3>=2.2.2
 wheel==0.44.0
 zstandard==0.23.0
