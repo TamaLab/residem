@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: write # Ensure the GITHUB_TOKEN has write access
 
-    # Skip docs if 'skip docs' is contained in latest commit message
+    # Skip docs if 'skip docs' is contained in the latest commit message
     if: "!contains(github.event.head_commit.message, 'skip docs')"
 
     steps:
@@ -22,7 +22,7 @@ jobs:
       - name: Set up Python 3.12.5
         uses: actions/setup-python@v5
         with:
-          python-version: 3.12.5
+          python-version: "3.12.5"
 
       - name: Install dependencies
         run: |
@@ -31,18 +31,12 @@ jobs:
           pip install sphinx-rtd-theme
           pip install -e ".[docs]"
 
-      # - name: Set up Pandoc
-      #   uses: r-lib/actions/setup-pandoc@v2
-
-      # sphinx-build -b html -E -a docs docs/_build/html
-      - name: Create .nojekyll file
-        run: echo "" > docs/_build/html/.nojekyll
-
       - name: Build documentation
         run: |
           cd docs
           make clean
           make html
+          echo "" > _build/html/.nojekyll
 
       - name: Commit documentation changes to gh-pages
         run: |
