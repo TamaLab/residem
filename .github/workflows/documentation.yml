@@ -44,8 +44,8 @@ jobs:
           make clean
           make html
 
-      # - name: Create .nojekyll file
-      #   run: echo "" > docs/_build/html/.nojekyll
+      - name: Create .nojekyll file
+        run: echo "" > docs/_build/html/.nojekyll
 
       - name: Commit documentation changes to gh-pages
         run: |
