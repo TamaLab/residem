@@ -3,21 +3,6 @@ import os
 import pytest
 
 
-def run_residem_pdb_mtz(pdb):
-    # Command to be tested
-    command = ["residem_pdb_mtz", "-r", f"{pdb}"]
-
-    # Run the command
-    result = subprocess.run(command, capture_output=True, text=True)
-
-    # Check the return code
-    assert result.returncode == 0, f"Command failed with return code%s" % result.returncode
-
-    # Check for errors in stderr, but don't fail the test if there are warnings
-    if result.stderr:
-        print(f"Stderr output: {result.stderr}")
-
-    return result
 
 
 def run_residem():
@@ -46,8 +31,6 @@ def check_output_files():
 
 def test_residem_pdb_mtz():
     # Run the commands
-    # run_residem_pdb_mtz("5b6v")
-    # run_residem_pdb_mtz("5b6x")
     run_residem()
 
     # Check for expected output files
