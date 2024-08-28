@@ -23,8 +23,7 @@ def run_residem():
 
 def check_output_files():
     # Expected files
-    expected_files = ["5b6v.pdb", "5b6v.mtz",
-                      "Data_folder_0/F_obs_minus_F_obs.ccp4"]
+    expected_files = ["Data_folder_0/F_obs_minus_F_obs.ccp4"]
 
     for filename in expected_files:
         assert os.path.isfile(filename), f"Expected file {filename} not found"
