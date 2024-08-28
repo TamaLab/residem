@@ -22,7 +22,7 @@ Linux    | ![Ubuntu Build Status](https://github.com/TamaLab/residem/actions/wor
 
 # Resi-DEM.
 
-Resi-DEM is a tool that identifies residues in isomorphous difference density map captured using Time-resolved serial femtosecond crystallographic data. It uses DBSCAN based clustering algorithm to cluster the co-ordinates of the difference peak in the difference density map and assigns the cluster to the neighbouring atoms. It can also perform various calculations and plot their outputs. A breif documentation of ResiDEM can be found [here](https://hypowergravity.github.io/test_residem/) 
+Resi-DEM is a tool that identifies residues in isomorphous difference density map captured using Time-resolved serial femtosecond crystallographic data. It uses DBSCAN based clustering algorithm to cluster the co-ordinates of the difference peak in the difference density map and assigns the cluster to the neighbouring atoms. It can also perform various calculations and plot their outputs. A breif documentation of ResiDEM can be found here.
 
 ## Installation
 Quick installation of ResiDEM can be done using the following:
