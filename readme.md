@@ -1,13 +1,13 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
-[![CI](https://github.com/hypowergravity/test_residem/actions/workflows/ci.yml/badge.svg)](https://github.com/hypowergravity/test_residem/actions/workflows/ci.yml)
+[![CI](https://github.com/TamaLab/residem/actions/workflows/ci.yml/badge.svg)](https://github.com/hypowergravity/test_residem/actions/workflows/ci.yml)
 
 
 Platform | CI Status
 ---------|:---------
-OSX      | ![macOS Build Status](https://github.com/hypowergravity/test_residem/actions/workflows/ci.yml/badge.svg?branch=main&event=push&job=test_macos)
-Linux    | ![Ubuntu Build Status](https://github.com/hypowergravity/test_residem/actions/workflows/ci.yml/badge.svg?branch=main&event=push&job=test_ubuntu)
+OSX      | ![macOS Build Status](https://github.com/TamaLab/residem/actions/workflows/ci.yml/badge.svg?branch=main&event=push&job=test_macos)
+Linux    | ![Ubuntu Build Status](https://github.com/TamaLab/residem/actions/workflows/ci.yml/badge.svg?branch=main&event=push&job=test_ubuntu)
 
 
 
