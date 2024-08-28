@@ -9,12 +9,12 @@
 
 ```
 
-Installation of ResiDEM requires few dependency such as [Computational Crystallography Toolbox (CCTBX)](https://cctbx.github.io/).
+Installation of ResiDEM requires few dependencies such as [Computational Crystallography Toolbox (CCTBX)](https://cctbx.github.io/).
 It also some requires some basic python packages for data processing such as numpy, pandas, scipy etc...
 
 ## Installation
 
-ResiDEM is a python tool written in python 3, and it is recommended that a new environment is created for better package
+ResiDEM is a python tool written in python 3 version, and it is recommended that a new environment is created for better package
 management and to avoid any dependency conflicts.
 
 1. Creating a conda virtual environment and installation :
@@ -51,11 +51,10 @@ pip install dist/residem-0.1.0.tar.gz
 
 The ResiDEM package might also need [CCP4 scaleit](https://www.ccp4.ac.uk/html/scaleit.html). It
 will be used for scaling between reference and triggered state if that particular user option in given.
-It also has inbuilt scaling method, but works well with
-isomorphous data sets.
+It also has inbuilt scaling method, which works well with isomorphous data sets.
 ```
 
-To check if the CCP4 package or scaleit in the path the following command can used.
+To check if the CCP4 package or scaleit in the path, the following command can used.
 
 ```bash
 if command -v ccp4 &> /dev/null
@@ -68,11 +67,11 @@ fi
 
 ## Unit test
 
-Testing the tool with Bacteriorhodopsin data.
+Testing the tool with `Bacteriorhodopsin` data.
 There are two python scripts which can be used to run, reproduce images as in the [published article](https://doi.org/10.1021/acs.jcim.4c00858)
 .
-The name of the scripts are `residem_unit_test.py` and `SVD_unit_test.py` which are available in tests directory.
-The main script `residem_unit_test.py` can be used to test the tool and reproduce the certain figures as in [published article](https://doi.org/10.1021/acs.jcim.4c00858)
+The name of the scripts are `residem_unit_test.py` and `SVD_unit_test.py` which are available in `test_data` directory in tests as zip file.
+The main script `residem_unit_test.py` can be used to test the tool and reproduce certain figures as in [published article](https://doi.org/10.1021/acs.jcim.4c00858)
 .
 This script computes the isomorphous difference density for Bacteriorhodopsin(bR) for 13 time delays as published by [Nango et al.](https://www.science.org/doi/10.1126/science.aah3497)
 
@@ -84,6 +83,8 @@ The testing can be done using the following commands.
 ```bash
 conda activate residem
 cd tests
+unzip test_data.zip
+cd test_data
 python residem_unit_test.py
 # after completeion of the above the follwoing can be submitted.
 python SVD_unit_test.py

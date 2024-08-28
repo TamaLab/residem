@@ -10,3 +10,7 @@
 .wy-table-responsive table th {
   white-space: normal;
 }
+
+a:hover {
+  color: orange;
+}
