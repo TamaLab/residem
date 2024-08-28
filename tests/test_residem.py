@@ -21,16 +21,17 @@ def run_residem_pdb_mtz(pdb):
 
 
 def run_residem():
-    command = ["residem", "-r", "5b6v.pdb", "-m", "5b6v.mtz", "-t", "5b6x.mtz"]
+    pdb_file = "tests/5b6v.pdb"
+    mtz_file1 = "tests/5b6v.mtz"
+    mtz_file2 = "tests/5b6x.mtz"
+
+    command = ["residem", "-r", pdb_file, "-m", mtz_file1, "-t", mtz_file2]
+    
     # Run the command
     result = subprocess.run(command, capture_output=True, text=True)
 
     # Check the return code
-    assert result.returncode == 0, f"Command failed with return code%s" % result.returncode
-
-    # Check for errors in stderr, but don't fail the test if there are warnings
-    if result.stderr:
-        print(f"Stderr output: {result.stderr}")
+    assert result.returncode == 0, f"Command failed with return code {result.returncode}"
 
     return result
 
