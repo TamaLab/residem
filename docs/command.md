@@ -17,7 +17,6 @@
 ```{eval-rst}
 .. autoprogram:: src.residem._argparse:residem_parser 
     :prog: residem
-
      
 .. autoprogram:: src.residem._argparse:residem_coot_parser 
     :prog: residem_coot
