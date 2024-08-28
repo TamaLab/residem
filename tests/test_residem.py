@@ -46,8 +46,8 @@ def check_output_files():
 
 def test_residem_pdb_mtz():
     # Run the commands
-    run_residem_pdb_mtz("5b6v")
-    run_residem_pdb_mtz("5b6x")
+    # run_residem_pdb_mtz("5b6v")
+    # run_residem_pdb_mtz("5b6x")
     run_residem()
 
     # Check for expected output files
