@@ -44,9 +44,6 @@ jobs:
           make clean
           make html
 
-      - name: Create .nojekyll file
-        run: echo "" > docs/_build/html/.nojekyll
-
       - name: Commit documentation changes to gh-pages
         run: |
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} --branch gh-pages --single-branch gh-pages
