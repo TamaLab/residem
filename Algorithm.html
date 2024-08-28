@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Algorithm &mdash; Residem</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Analyzing the results" href="Result.html" />
+    <link rel="prev" title="Quick Start" href="Quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ResiDEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation of ResiDEM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Algorithm</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Result.html">Analyzing the results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command.html">Command Line options and arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Limitation.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="About.html">About ResiDEM</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ResiDEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Algorithm</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Algorithm.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="algorithm">
+<h1>Algorithm<a class="headerlink" href="#algorithm" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>The initial purpose of the tool is to analyse isomorphous difference density map (DED).  DED maps are generated from
+difference structure factor amplitudes, obtained by subtracting reference structure factor amplitudes of
+reference <span class="math notranslate nohighlight">\(|F_{obs}^{ref}|\)</span> and triggered state <span class="math notranslate nohighlight">\(|F_{obs}^{t}|\)</span>, measured at time t after reaction initiation.
+Detailed description of DED maps can be found <a class="reference external" href="https://doi.org/10.1063/4.0000196">elsewhere</a>.
+The time-evolved difference density map describes the difference density profile as functions of time Δσ(r,t),
+where r denotes a discrete set of grid points (voxel) over the space of an asymmetric unit cell.
+In each difference map, the voxel value is subject to the dynamics of the structural intermediates.
+These difference maps are often inspected manually to identify the associated features.
+Here, we employed the Density-Based Spatial Clustering of Applications with Noise <a class="reference external" href="https://dl.acm.org/doi/10.5555/3001460.3001507">(DBSCAN)</a>
+algorithm to separately group voxels with positive and negative values. Two sets of parameters are given for the <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> algorithm:
+the maximum distance between two points that are considered to be part of the same cluster (eps) and the minimum set of
+points to form a cluster or dense region (minPts). In our implementation, we set the eps to 0.73 Å, which is
+the covalent radius of <a class="reference external" href="https://link.springer.com/article/10.1007/BF00907656">carbon</a>,
+Minimum points (minPts) are set to 5 voxels that can be grouped together.
+The workflow of <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> implemented in our tool is as given below. A clearer expanded version can be found <a class="reference internal" href="DBSCAN.html"><span class="std std-doc">here</span></a>.</p>
+<div class="mermaid">
+            flowchart LR
+    
+    B[inputs] --&gt; C{preprocess}
+    C --&gt; J{Are all points processed?}
+
+    J -- No --&gt; K{Visited?}
+    K -- No --&gt; L[Mark as visited]
+    L --&gt; M[Find neighbors within epsilon using distance matrix]
+    M --&gt; N{Neighbors &gt;= minpts?}
+
+    N -- Yes --&gt; O[Start a new cluster, increment C]
+    O --&gt; P[Assign current point to cluster C]
+    P --&gt; Q[Expand Cluster]
+    subgraph Workflow 2
+    Q
+    end
+    Q --&gt; J
+
+    N -- No --&gt; R[Mark as noise]
+    R --&gt; J
+
+    K -- Yes --&gt; J
+    J -- Yes --&gt; S[End]
+
+        </div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Workflow 1 of DBSCAN algorithm. 
+
+The main workflow iterates over each point to check if it has been visited.
+If not visited, it marks the point as visited, finds its neighbors, and 
+determines whether to start a new cluster or mark the point as noise.
+If starting a new cluster, it expands the cluster by checking neighbors.
+</pre></div>
+</div>
+<div class="mermaid">
+            flowchart LR
+    subgraph Workflow 1
+    T
+    end
+    T[Expand Cluster] --&gt; T1{Are there unvisited neighbors?}
+    T1 -- Yes --&gt; T2[Mark neighbor as visited]
+    T2 --&gt; T3{Does neighbor have enough neighbors?}
+    T3 -- Yes --&gt; T4[Add neighbors to cluster C]
+    T4 --&gt; T5[Update cluster index to C]
+    T5 --&gt; T1
+    T3 -- No --&gt; T6[Continue checking neighbors]
+    T6 --&gt; T1
+    T1 -- No --&gt; T7[Finish expanding cluster C]
+
+        </div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Workflow 2 of DBSCAN algorithm for Expanding cluster.
+
+This workflow expands the cluster by recursively checking neighbors.
+If a neighbor has enough points around it, it gets added to the cluster, 
+and the process repeats until no more neighbors can be added.
+</pre></div>
+</div>
+<p>The grid points within the protein are generally selected as the mask regions for cluster identification.
+After clustering, the sum of difference electron density values is calculated for each cluster by summing
+the value of the voxels within the cluster if the values are above the σ value (±3.0 σ as the default value)
+in the difference electron density map. Then, an atom that is closest to and within a 2 Å radius of the maximum peak
+within the cluster is identified. This atom, which is associated with the cluster, is further used to examine the
+density changes in individual structural intermediates. In addition, for each of the identified clustered regions,
+hereafter called electron density blobs, specific features such as their volumes and their electron sums are calculated.
+The blob volume is evaluated by providing the coordinate of the obtained cluster in “maptbx.peak_volume_estimate” function
+implemented in cctbx tool. Additionally, to visualize changes in difference electron density consistently throughout the time series data,
+we normalized the values to set their range between 0 and 1, using the minimum and maximum values within the time series data.</p>
+<p>In a previous study, <a class="reference external" href="https://doi.org/10.1063/1.5126921">Wickstrand et al.</a> suggested an approach to associate atoms with
+different electron densities implemented in Maptool, which portrays the three-dimensional changes in electron density
+as a one-dimensional representation plot associated with each residue.
+Recently, <a class="reference external" href="https://github.com/asmit3/eden">Dasgupta</a> published the same methodology as Maptool for estimating the average amplitude using the cctbx module.
+Our tool has also additionally implemented this method, where we estimate the average difference density
+within a 2 Å radius of each atom for all residues in the protein. However, this approach may not provide information
+about the distribution surrounding the atoms because it is bound by a radius cutoff. The clustering approach was used
+to quantify the electron density features and delineate the residual contributions associated with difference densities
+that were not directly on top of the atoms.</p>
+<script>
+document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.setAttribute('target', '_blank');
+});
+</script>
+<script>
+document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.setAttribute('target', '_blank');
+});
+</script>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Quickstart.html" class="btn btn-neutral float-left" title="Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Result.html" class="btn btn-neutral float-right" title="Analyzing the results" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sriram Srinivasa Raghavan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work Flow of DBSCAN implemented in ResiDEM &mdash; Residem</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+    <link rel="shortcut icon" href="_static/Resi-DEM_icon.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ResiDEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation of ResiDEM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Algorithm.html">Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Result.html">Analyzing the results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command.html">Command Line options and arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Limitation.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="About.html">About ResiDEM</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ResiDEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Work Flow of DBSCAN implemented in ResiDEM</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/DBSCAN.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="work-flow-of-dbscan-implemented-in-residem">
+<h1>Work Flow of DBSCAN implemented in ResiDEM<a class="headerlink" href="#work-flow-of-dbscan-implemented-in-residem" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<section id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Link to this heading"></a></h2>
+<p>Initialization Steps involves screening coordinates Input data points which corresponds to voxel with difference peak greater than +/- 3.0 sigma value.
+Epsilon, Defines the radius within which neighbors are considered and is set 0.77.
+Minpts, Minimum number of points required to form a cluster is set to 5.
+After which unique data points are obtained with number of point n estimated.
+Distance matrix between all points are calculated. Then initial parameters such as
+visited (Boolean array to track visited points), noise (Boolean array to mark noise points),
+idx:( Array to store cluster indices for each point) and
+C (Counter to keep track of the current cluster ID are set to False).</p>
+<div class="mermaid">
+            flowchart TD
+    
+    B[inputs] --&gt; C{preprocess}
+    C --&gt; J{Are all points processed?}
+
+    J -- No --&gt; K{Visited?}
+    K -- No --&gt; L[Mark as visited]
+    L --&gt; M[Find neighbors within epsilon using distance matrix]
+    M --&gt; N{Neighbors &gt;= minpts?}
+
+    N -- Yes --&gt; O[Start a new cluster, increment C]
+    O --&gt; P[Assign current point to cluster C]
+    P --&gt; Q[Expand Cluster]
+    subgraph Workflow 2
+    Q
+    end
+    Q --&gt; J
+
+    N -- No --&gt; R[Mark as noise]
+    R --&gt; J
+
+    K -- Yes --&gt; J
+    J -- Yes --&gt; S[End]
+
+
+        </div><p>Workflow 1 of DBSCAN algorithm.</p>
+<p>The main workflow iterates over each point to check if it has been visited.
+If not visited, it marks the point as visited, finds its neighbors, and determines whether to start a new cluster or mark the point as noise.
+If starting a new cluster, it expands the cluster by checking neighbors.</p>
+<div class="mermaid">
+            flowchart TD
+    subgraph Workflow 1
+    T
+    end
+    T[Expand Cluster] --&gt; T1{Are there unvisited neighbors?}
+    T1 -- Yes --&gt; T2[Mark neighbor as visited]
+    T2 --&gt; T3{Does neighbor have enough neighbors?}
+    T3 -- Yes --&gt; T4[Add neighbors to cluster C]
+    T4 --&gt; T5[Update cluster index to C]
+    T5 --&gt; T1
+    T3 -- No --&gt; T6[Continue checking neighbors]
+    T6 --&gt; T1
+    T1 -- No --&gt; T7[Finish expanding cluster C]
+
+        </div><p>Workflow 2 of DBSCAN algorithm for Expanding cluster.</p>
+<p>This workflow expands the cluster by recursively checking neighbors.
+If a neighbor has enough points around it, it gets added to the cluster, and the process repeats until no more neighbors can be added.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Sriram Srinivasa Raghavan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
