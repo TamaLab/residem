@@ -673,7 +673,7 @@ class ScaleNativeDerivative(DataInput):
                 column_root_label='schmidt_w', column_types='W')
 
         mtz_dataset.add_miller_array(
-            miller_array=miller.array(miller_set=self.miller_set, data=self.R_Free),
+            miller_array=miller.array(miller_set=self.miller_set, data=flex.int(self.R_Free.data())),
             column_root_label='FREE', column_types='I')
         mtz_dataset.mtz_object().write(name)
 
