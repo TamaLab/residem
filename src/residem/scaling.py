@@ -38,11 +38,12 @@ class ScaleNativeDerivative(DataInput):
     def __init__(self, reference_pdb, reference_mtz, Triggered_mtz, reference_label=None, triggered_label=None,
                  fcalclabel=None,
                  high_resolution=None, low_resolution=None, weight="default", grid_step=0.5, scale="iso", write=True,
-                 path=None, alpha=None, logger=None):
+                 path=None, alpha=1, logger="output.log"):
         super().__init__(reference_pdb, reference_mtz, Triggered_mtz, reference_label, triggered_label, fcalclabel,
                          high_resolution, low_resolution, logger)
         self.logger = setup_logger(logger)
         self.alpha = alpha
+
         self.model = mmtbx.model.manager(model_input=self.pdb_in)
         self.grid_step = grid_step
         self.resolution_factor = self.grid_step / self.high_resolution
@@ -150,38 +151,33 @@ class ScaleNativeDerivative(DataInput):
 
         else:
             self.delta_F = self.f_model_light_scaled_obs.data() - self.f_model_dark_scaled.data()
-        self.delta_F_model = self.F_light - self.F_calc
+        # self.delta_F_model = self.F_light - self.F_calc
+        self.phase = self.phase_flip(self.delta_F)
 
         # ## weight calculation
         # ## K weightSC.F
         self.logger.info(f"Calculating different weights in isomorphous difference density map")
         self.weight_ren = self.W_weight("ren")
         self.ursby_weight = self.compute_ursby_weight().data()
+
         self.sigma_df = self.sigma_cal()
 
-        ###
         self.ren_factor = self.weight_ren / flex.mean(flex.double(self.weight_ren))
         self.ursby_factor = self.ursby_weight / flex.mean(flex.double(self.ursby_weight))
-          # .data()
+        self.weight_hekstra = self.W_weight("hekstra", alpha=alpha)  # .data()
 
-
-
-        self.wDF = flex.double(self.ren_factor * self.delta_F.as_numpy_array())
+        self.hekstra_factor = self.weight_hekstra / flex.mean(flex.double(self.weight_hekstra))
+        self.hDF = flex.double(self.hekstra_factor * self.delta_F)
+        self.wDF = flex.double(self.ren_factor.as_numpy_array() * self.delta_F)
         self.rDF = flex.double(self.ursby_factor.as_numpy_array() * self.delta_F)
         self.sigma_ren_df = self.sigma_df * self.ren_factor
         self.sigma_ursby_df = self.sigma_df * self.ursby_factor
-
-
+        self.sigma_hekstra_df = self.sigma_df * self.hekstra_factor
         if self.alpha != 1:
             self.weight_hekstra_1 = self.W_weight("hekstra", alpha=1)
             self.hekstra_factor_1 = self.weight_hekstra_1 / flex.mean(flex.double(self.weight_hekstra_1))
-            self.hDF_1 = flex.double(self.hekstra_factor_1 * self.delta_F.as_numpy_array())
+            self.hDF_1 = flex.double(self.hekstra_factor_1 * self.delta_F)
             self.sigma_hekstra_df_1 = self.sigma_df * self.hekstra_factor_1
-
-        self.weight_hekstra = self.W_weight("hekstra", alpha=self.alpha)
-        self.hekstra_factor = self.weight_hekstra / flex.mean(flex.double(self.weight_hekstra))
-        self.hDF = flex.double(self.hekstra_factor * self.delta_F.as_numpy_array())
-        self.sigma_hekstra_df = self.sigma_df * self.hekstra_factor
 
     def I_2_F(self, miller_array):
         if miller_array.is_xray_intensity_array():
@@ -325,6 +321,7 @@ class ScaleNativeDerivative(DataInput):
         map_coefficients = map_tools.electron_density_map(fmodel=f_model).map_coefficients(
             map_type=coefficient, isotropize=False, fill_missing=False, sharp=False, acentrics_scale=2.0,
             centrics_pre_scale=1.0)
+        # map_coefficients = map_coefficients.phase_transfer(flex.double(self.phase_flip(data)))
 
         fft_map = miller.fft_map(crystal_gridding=self.crystal_gridding(),
                                  fourier_coefficients=map_coefficients.as_non_anomalous_array())
@@ -581,58 +578,16 @@ class ScaleNativeDerivative(DataInput):
         R_iso = Num / den if den != 0 else None
         return R_iso
 
-
-    def Plot_weight(self,path):
-
-        out_pdf = os.path.join(path,"Difference_structure_factor_distribution.pdf")
-        pdf = matplotlib.backends.backend_pdf.PdfPages(out_pdf)
-
-        # List of dictionaries containing data to plot
-        list_to_plot = [
-            {"x": self.delta_F.as_numpy_array(), "y": np.abs(self.delta_F.as_numpy_array()) / np.array(self.sigma_df), "z": np.array(self.sigma_df), "label": "No weighting scheme"},
-            {"x": self.wDF.as_numpy_array(), "y": np.abs(self.wDF.as_numpy_array()) / np.array(self.sigma_ren_df) , "z": np.array(self.sigma_ren_df) ,
-             "label": "Weighting scheme by Ren"},
-            {"x": self.rDF.as_numpy_array(), "y": np.abs(self.rDF.as_numpy_array()) / np.array(self.sigma_ursby_df), "z": np.array(self.sigma_ursby_df),
-             "label": "Weighting scheme by Ursby"},
-            {"x": self.hDF.as_numpy_array(), "y": np.abs(self.hDF.as_numpy_array()) / np.array(self.sigma_hekstra_df), "z": np.array(self.sigma_hekstra_df),
-             "label": f"Weighting scheme by Hekstra, alpha=%s"%self.alpha}
-        ]
-        if self.alpha !=1:
-            list_to_plot.append({"x": self.hDF_1.as_numpy_array(), "y": np.abs(self.hDF_1.as_numpy_array()) / np.array(self.sigma_hekstra_df_1),
-         "z": np.array(self.sigma_hekstra_df_1), "label": "Weighting scheme by Schmidt, alpha=1"})
-
-
-        for item in list_to_plot:
-            fig, ax = plt.subplots(figsize=(10, 7))
-            percentage_above_threshold = np.sum(item["y"] > 10) / len(item["y"]) * 100
-
-            Y_Tick_label = r"$\frac{\left| \Delta F \right|}{\sigma_{|\Delta F|}}$"
-
-            filtered_indices = (item["y"] > -5) & (item["y"] < 5)
-            x_filtered = item["x"][filtered_indices]
-            y_filtered = item["y"][filtered_indices]
-
-            sns.kdeplot(x=x_filtered, y=y_filtered, cmap="Blues", fill=True, bw_adjust=0.5, ax=ax, label=item["label"])
-            ax.set_xlabel(r"$\left| \Delta F \right|$", size=20)
-            ax.set_ylabel(Y_Tick_label, size=24)
-            ax.set_title('Distribution of difference Fourier coefficients')
-            ax.legend()
-
-            ax_inset = ax.inset_axes([0.7, 0.7, 0.25, 0.25])  # Create inset at a specific location and size
-
-
-            sns.kdeplot(x=item["x"], y=item["z"], cmap="Reds", fill=True, bw_adjust=0.5, ax=ax_inset)
-
-            ax_inset.set_xlabel(r"$\left| \Delta F \right|$", fontsize=10)
-            ax_inset.set_ylabel(r'$\sigma_{ |\Delta F |}$', fontsize=10)
-            label_text = f"Percentage of {Y_Tick_label} Points above {10} : {percentage_above_threshold:.2f}%"
-            ax.legend([label_text,item["label"]], loc='upper left')
-            ax.set_ylim(-2, 5)
-
-            pdf.savefig(fig)
-            plt.close()
-
-        pdf.close()
+    def phase_flip(self, array):
+        arr1 = array.deep_copy()
+        arr1 = arr1.as_numpy_array()
+        arr2 = self.F_cal_common.phases(deg=True).data().as_numpy_array()
+        negative_mask = arr1 < 0
+        arr2_flipped = np.copy(arr2)
+        arr2_flipped[negative_mask] = arr2_flipped[negative_mask] + 180
+        arr2_flipped = np.where(arr2_flipped > 180, arr2_flipped - 360, arr2_flipped)
+        arr2_flipped = np.where(arr2_flipped < -180, arr2_flipped + 360, arr2_flipped)
+        return arr2_flipped
 
     def mtz_dataset(self, name="Difference_map_weighted_all.mtz"):
         mtz_dataset = miller.array(miller_set=self.miller_set,
@@ -649,7 +604,7 @@ class ScaleNativeDerivative(DataInput):
             miller_array=miller.array(miller_set=self.miller_set, data=self.f_model_light_scaled_obs.sigmas())
             , column_root_label="SIGF_LIGHT", column_types="Q")
         mtz_dataset.add_miller_array(miller_array=self.f_model_dark.f_calc().as_amplitude_array(),
-                                     column_root_label="FC")
+                                     column_root_label="FC", column_types="F")
 
         mtz_dataset.add_miller_array(
             miller_array=miller.array(miller_set=self.miller_set,
@@ -657,12 +612,23 @@ class ScaleNativeDerivative(DataInput):
             column_root_label="PHIC", column_types="P")
 
         mtz_dataset.add_miller_array(miller_array=miller.array(miller_set=self.miller_set,
+                                                               data=flex.double(np.abs(self.delta_F))),
+                                     column_root_label="DF_P", column_types="F")
+        mtz_dataset.add_miller_array(miller_array=miller.array(miller_set=self.miller_set,
+                                                               data=flex.double(np.full(len(self.delta_F), 10))),
+                                     column_root_label="DF_10", column_types="F")
+
+        mtz_dataset.add_miller_array(
+            miller_array=miller.array(miller_set=self.miller_set,
+                                      data=flex.double(self.phase)),
+            column_root_label="PHIC_Flip", column_types="P")
+
+        mtz_dataset.add_miller_array(miller_array=miller.array(miller_set=self.miller_set,
                                                                data=flex.double(self.delta_F)),
                                      column_root_label="DF", column_types="F")
         mtz_dataset.add_miller_array(miller_array=miller.array(miller_set=self.miller_set,
                                                                data=flex.double(self.sigma_df)),
                                      column_root_label="SIGF_DF", column_types="Q")
-
         mtz_dataset.add_miller_array(
             miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.wDF)),
             column_root_label='DF_Ren', column_types="F")
@@ -684,8 +650,7 @@ class ScaleNativeDerivative(DataInput):
                                                                data=flex.double(self.sigma_hekstra_df)),
                                      column_root_label="SIGF_hekstra", column_types="Q")
 
-        if self.alpha !=1:
-
+        if self.alpha != 1:
             mtz_dataset.add_miller_array(
                 miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.hDF_1)),
                 column_root_label='DF_hekstra_A_1', column_types="F")
@@ -693,23 +658,83 @@ class ScaleNativeDerivative(DataInput):
                                                                    data=flex.double(self.sigma_hekstra_df_1)),
                                          column_root_label="SIGF_hekstra_A_1", column_types="Q")
 
-        mtz_dataset.add_miller_array(miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.ursby_factor)),
-                                     column_root_label='kDF', column_types='W')
-        mtz_dataset.add_miller_array(miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.ren_factor)),
-                                     column_root_label='qDF', column_types='W')
-        mtz_dataset.add_miller_array(miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.hekstra_factor)),
-                                     column_root_label='hDF', column_types='W')
+        mtz_dataset.add_miller_array(
+            miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.ursby_factor)),
+            column_root_label='ursby_w', column_types='W')
+        mtz_dataset.add_miller_array(
+            miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.ren_factor)),
+            column_root_label='ren_w', column_types='W')
+        mtz_dataset.add_miller_array(
+            miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.hekstra_factor)),
+            column_root_label='hekstra_w', column_types='W')
         if self.alpha != 1:
             mtz_dataset.add_miller_array(
                 miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.hekstra_factor_1)),
-                column_root_label='hDF_1', column_types='W')
+                column_root_label='schmidt_w', column_types='W')
 
         mtz_dataset.add_miller_array(
-            miller_array=miller.array(miller_set=self.miller_set, data=flex.double(self.delta_F_model)),
-            column_root_label='DF_cal', column_types='F')
+            miller_array=miller.array(miller_set=self.miller_set, data=self.R_Free),
+            column_root_label='FREE', column_types='I')
         mtz_dataset.mtz_object().write(name)
 
         return mtz_dataset
+
+    def Plot_weight(self, path):
+
+        out_pdf = os.path.join(path, "Difference_structure_factor_distribution.pdf")
+        pdf = matplotlib.backends.backend_pdf.PdfPages(out_pdf)
+
+        # List of dictionaries containing data to plot
+        list_to_plot = [
+            {"x": self.delta_F.as_numpy_array(), "y": np.abs(self.delta_F.as_numpy_array()) / np.array(self.sigma_df),
+             "z": np.array(self.sigma_df), "label": "No weighting scheme"},
+            {"x": self.wDF.as_numpy_array(), "y": np.abs(self.wDF.as_numpy_array()) / np.array(self.sigma_ren_df),
+             "z": np.array(self.sigma_ren_df),
+             "label": "Weighting scheme by Ren"},
+            {"x": self.rDF.as_numpy_array(), "y": np.abs(self.rDF.as_numpy_array()) / np.array(self.sigma_ursby_df),
+             "z": np.array(self.sigma_ursby_df),
+             "label": "Weighting scheme by Ursby"},
+            {"x": self.hDF.as_numpy_array(), "y": np.abs(self.hDF.as_numpy_array()) / np.array(self.sigma_hekstra_df),
+             "z": np.array(self.sigma_hekstra_df),
+             "label": f"Weighting scheme by Hekstra, alpha=%s" % self.alpha}
+        ]
+        if self.alpha != 1:
+            list_to_plot.append({"x": self.hDF_1.as_numpy_array(),
+                                 "y": np.abs(self.hDF_1.as_numpy_array()) / np.array(self.sigma_hekstra_df_1),
+                                 "z": np.array(self.sigma_hekstra_df_1),
+                                 "label": "Weighting scheme by Schmidt, alpha=1"})
+
+        for item in list_to_plot:
+            fig, ax = plt.subplots(figsize=(10, 7))
+            percentage_above_threshold = np.sum(item["y"] > 10) / len(item["y"]) * 100
+
+            Y_Tick_label = r"$\frac{\left| \Delta F \right|}{\sigma_{|\Delta F|}}$"
+
+            filtered_indices = (item["y"] > -5) & (item["y"] < 5)
+            x_filtered = item["x"][filtered_indices]
+            y_filtered = item["y"][filtered_indices]
+
+            sns.kdeplot(x=x_filtered, y=y_filtered, cmap="Blues", fill=True, bw_adjust=0.5, ax=ax, label=item["label"])
+            ax.set_xlabel(r"$\left| \Delta F \right|$", size=20)
+            ax.set_ylabel(Y_Tick_label, size=24)
+            ax.set_title('Distribution of difference Fourier coefficients')
+            ax.legend()
+
+            ax_inset = ax.inset_axes([0.7, 0.7, 0.25, 0.25])  # Create inset at a specific location and size
+
+            sns.kdeplot(x=item["x"], y=item["z"], cmap="Reds", fill=True, bw_adjust=0.5, ax=ax_inset)
+
+            ax_inset.set_xlabel(r"$\left| \Delta F \right|$", fontsize=10)
+            ax_inset.set_ylabel(r'$\sigma_{|\Delta F |}$', fontsize=10)
+            label_text = f"Percentage of {Y_Tick_label} Points above {10} : {percentage_above_threshold:.2f}%"
+            ax.legend([label_text, item["label"]], loc='upper left')
+            ax.set_ylim(-2, 5)
+
+            pdf.savefig(fig)
+            plt.close()
+
+        # Close the PDF
+        pdf.close()
 
     def W_weight(self, weight="ren", alpha=1):
         """ weight as suggested by Ren 2001 and hekstra 2016 """
@@ -720,21 +745,21 @@ class ScaleNativeDerivative(DataInput):
             # weight_re = flex.double(self.compute_hekstra_weight(alpha).data())
             weight_re = flex.double(self.compute_target_weight_h(self.delta_F.as_numpy_array(), SigDF, alpha))
 
-        return weight_re.as_numpy_array()
+        return weight_re
 
     @staticmethod
     def compute_target_weight_k(F, SIGF):
         ''' This is a simplified weighting scheme implemented by Ren 2001 '''
 
         w = np.power((1 + (SIGF ** 2 / np.mean(np.array(SIGF)) ** 2) + (F ** 2 / (F).mean() ** 2)), -1)
-        return w # / np.mean(w)
+        return w  # /np.mean(w)
 
     @staticmethod
     def compute_target_weight_h(F, SIGF, alpha):
         ''' This is a simplified weighting scheme implemented by Ren 2001 '''
 
         w = np.power((1 + (SIGF ** 2 / np.mean(np.array(SIGF ** 2))) + alpha * (F ** 2 / (F ** 2).mean())), -1)
-        return w  #/ np.mean(w)
+        return w  # /np.mean(w)
 
     def compute_ursby_weight(self):
         """ This is the weighting scheme implemented by ursby 1997 also implemented in xtrapol8 2022 """

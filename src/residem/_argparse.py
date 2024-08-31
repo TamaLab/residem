@@ -1,31 +1,31 @@
 import argparse
 
-residem_overview = (""" `residem` is a command line utility that computes isomorphous difference density (DED) maps. 
+residem_overview = (""" *`residem`* is a command line utility that computes isomorphous difference density (DED) maps. 
 You will need to provide one reference PDB file along with an MTZ file of the reference and triggered system. 
 The input can be intensity profiles or structure factor amplitudes, which the program will try to detect labels for. 
-If labels for reflection files are not provided, they must be supplemented. The ResiDEM performs scaling of the 
+If labels for reflection files are not provided, they must be supplemented. ResiDEM performs scaling of the 
 reference and triggered structure factors, followed by the calculation of the difference structure factor and DED maps.
 """)
 
-residem_pdb_mtz_overview = (""" `residem_pdb_mtz` is a command line utility used to download PDB and MTZ files from 
+residem_pdb_mtz_overview = (""" *`residem_pdb_mtz`* is a command line utility used to download PDB and MTZ files from 
 https://www.rcsb.org/.
 """)
 
-residem_coot_overview = (""" `residem_coot` is a command line utility used to visualize the DED maps. It uses Coot with 
+residem_coot_overview = (""" *`residem_coot`* is a command line utility used to visualize DED maps. It uses Coot with 
 an additional script to view residues associated with DED maps. It calls Coot and provides an input script for residual 
 tracking associated with DED maps.
 """)
 
-residem_extract_around_model_overview = (""" `residem_extract_around_model` is a command line utility used to extract 
+residem_extract_around_model_overview = (""" *`residem_extract_around_model`* is a command line utility used to extract 
 maps around a specified residue in the map.
 """)
 
-residem_svd_csv_overview = (""" `residem_svd_csv` is a command line utility used to analyze the results of 
+residem_svd_csv_overview = (""" *`residem_svd_csv`* is a command line utility used to analyze the results of 
 difference density output. The utility can generate one-dimensional residue-wise plots, two-dimensional heat map plots, 
 Pearson correlation plots, and network plots for residues with difference density in DED maps.
 """)
 
-residem_pymol_image_overview = (""" `residem_pymol_image` is a command line utility used to generate images of residues 
+residem_pymol_image_overview = (""" *`residem_pymol_image`* is a command line utility used to generate images of residues 
 in DED maps using PyMOL.
 """)
 
@@ -36,7 +36,7 @@ residem_args = (
         "type": str,
         "default": None,
         "help": """The PHIL file is a Python Hierarchical Input Language file, containing all inputs required to run the 
-        ResiDEM command line utility. Provide it with one argument."""
+        ResiDEM command line utility. This can be provided as one argument."""
     }),
     (("-d", "--default"), {
         "nargs": 1,
@@ -335,7 +335,7 @@ residem_svd_csv_args = (
         "nargs": 1,
         "required": False,
         "type": str,
-        "default": "denisty",
+        "default": "density",
         "help": """Type of map input. Options are 'peak' or 'density'. By default, 'density' is chosen."""
     }),
     (("--norm", "-z"), {
@@ -360,8 +360,7 @@ residem_pymol_image_args = (
         "required": True,
         "type": str,
         "default": None,
-        "help": """PDB file for analysis. List of files can be given, or if all files are in the same folder, "*.csv" 
-        can be provided as input."""
+        "help": """PDB file for analysis."""
     }),
     (("--map", "-m"), {
         "nargs": 1,

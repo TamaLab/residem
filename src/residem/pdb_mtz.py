@@ -1,11 +1,26 @@
 import urllib.request
+import subprocess
+
+
+def run_result(template):
+    try:
+        result = subprocess.run(template, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                universal_newlines=True, shell=True, check=True)
+        return result.returncode
+    except subprocess.CalledProcessError as e:
+        print(f"Background error: {e.stderr}")
+        return e.returncode
 
 
 def get_pdb_mtz(pdb_id):
-   url_mtz =  f"https://edmaps.rcsb.org/coefficients/%s.mtz"%pdb_id
+   url_mtz =  f"https://files.rcsb.org/download/%s-sf.cif"%pdb_id
    url_pdb = f"https://files.rcsb.org/download/%s.pdb"%pdb_id
    urllib.request.urlretrieve(url_mtz, f'{pdb_id}.mtz')
    urllib.request.urlretrieve(url_pdb, f'{pdb_id}.pdb')
+   run_result(f"sf_convert -o mtz -sf %s-sf.cif -out %s.mtz -pdb %s.pdb"%(pdb_id,pdb_id,pdb_id))
+   run_result("rm sf_format_guess.text")
+   run_result("rm sf_information.cif")
+
 
 
 
