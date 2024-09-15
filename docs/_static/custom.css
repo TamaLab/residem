@@ -12,8 +12,8 @@
 }
 
 a:link, a:visited {
-    color: inherit; 
-    text-decoration: none;
+    color: #05b4ed; 
+    text-decoration: green wavy underline;
 }
 
 a:hover {
