@@ -13,10 +13,14 @@
 
 a:link, a:visited {
     color: inherit; 
-    text-decoration: none; 
+    text-decoration: none;
 }
-
 
 a:hover {
-  color: orange;
+    color: orange; 
 }
+
+a:active {
+    color: inherit; 
+}
+
