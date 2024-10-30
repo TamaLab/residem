@@ -2,6 +2,14 @@ MIT License
 
 Copyright (c) 2024 TamaLab
 
+In the development of the weighting schemes in this software, we referred to the following work, which is also licensed under the MIT License:
+Xtrapol8, De Zitter, E., Coquelle, N., Oeser, P., Barends, T. & Colletier, J.-P. 
+Xtrapol8 enables automatic elucidation of low-occupancy intermediate states in crystallographic studies. 
+Communications Biology 5 (2022). DOI: 10.1038/s42003-022-03575-7.  
+Url: https://github.com/ElkeDeZitter/Xtrapol8/.
+
+Copyright (c) 2021 Elke De Zitter, Nicolas Coquelle, Thomas Barends and Jacques-Philippe Colletier
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -19,3 +27,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
