@@ -64,6 +64,9 @@ conda env update --prefix $base_path --file environment.yml --prune
 pip uninstall residem
 ```
 
+# Documentaion 
+
+The documentaion of the tool can be referred to at the following webiste : [https://tamalab.github.io/residem/](https://tamalab.github.io/residem/)
 
 
 
