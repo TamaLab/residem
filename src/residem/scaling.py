@@ -762,7 +762,16 @@ class ScaleNativeDerivative(DataInput):
         return w  # /np.mean(w)
 
     def compute_ursby_weight(self):
-        """ This is the weighting scheme implemented by ursby 1997 also implemented in xtrapol8 2022 """
+        """ This is the weighting scheme implemented by ursby 1997 also implemented in xtrapol8 2022 
+        In developing this function, we referred to the following work, licensed under the MIT License:
+        * De Zitter, E., Coquelle, N., Oeser, P., Barends, T. & Colletier, J.-P. 
+        Xtrapol8 enables automatic elucidation of low-occupancy intermediate states in crystallographic studies. 
+        Communications Biology 5 (2022). DOI: 10.1038/s42003-022-03575-7. 
+        * Xtrapol8, Copyright (c) 2021 Elke De Zitter, Nicolas Coquelle, Thomas Barends and Jacques-Philippe Colletier 
+        https://github.com/ElkeDeZitter/Xtrapol8/
+        The original license text can be found in the LICENSE file.
+
+        """
 
         mult = self.f_model_dark_scaled.multiplicities().data().as_double()
         mult = miller.array(miller_set=self.miller_set.centric_flags(), data=mult)
