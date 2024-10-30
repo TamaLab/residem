@@ -77,11 +77,11 @@ Residem is an open-source tool available under the MIT License, providing users 
 # Acknowledgement
 
 In the development of the weighting schemes in this software, we referred to the following works and recommend citing these references when relevant:
-* [De Zitter, E., Coquelle, N., Oeser, P., Barends, T. & Colletier, J.-P. Xtrapol8 enables automatic elucidation of low-occupancy intermediate states in crystallographic studies. Communications Biology 5 (2022)](10.1038/s42003-022-03575-7) 
-* [Ursby, T. & Bourgeois, D. Improved estimation of structure-factor difference amplitudes from poorly accurate data. Acta Crystallographica Section A: Foundations of Crystallography 53, 564–575 (1997).](10.1107/S0108767397004522)
-* [Ren, Z. et al. A molecular movie at 1.8 Å resolution displays the photocycle of photoactive yellow protein, a eubacterial blue-light receptor, from nanoseconds to seconds. Biochemistry 40, 13788–13801 (2001).](10.1021/bi0107142)
-* [Hekstra, D. R. et al. Electric-field-stimulated protein mechanics. Nature 540, 400–405 (2016).](10.1038/nature20571)
-* [Pandey, S. et al. Time-resolved serial femtosecond crystallography at the European XFEL. Nature Methods 17, 73–78 (2019)](10.1038/s41592-019-0628-z)
+* [De Zitter, E., Coquelle, N., Oeser, P., Barends, T. & Colletier, J.-P. Xtrapol8 enables automatic elucidation of low-occupancy intermediate states in crystallographic studies. Communications Biology 5 (2022)](https://www.nature.com/articles/s42003-022-03575-7) 
+* [Ursby, T. & Bourgeois, D. Improved estimation of structure-factor difference amplitudes from poorly accurate data. Acta Crystallographica Section A: Foundations of Crystallography 53, 564–575 (1997).](https://journals.iucr.org/paper?S0108767397004522)
+* [Ren, Z. et al. A molecular movie at 1.8 Å resolution displays the photocycle of photoactive yellow protein, a eubacterial blue-light receptor, from nanoseconds to seconds. Biochemistry 40, 13788–13801 (2001).](https://pubs.acs.org/doi/10.1021/bi0107142)
+* [Hekstra, D. R. et al. Electric-field-stimulated protein mechanics. Nature 540, 400–405 (2016).](https://www.nature.com/articles/nature20571)
+* [Pandey, S. et al. Time-resolved serial femtosecond crystallography at the European XFEL. Nature Methods 17, 73–78 (2019)](https://www.nature.com/articles/s41592-019-0628-z)
 
 Additionally, this software uses CCTBX. Please refer to the CCTBX license documentation for further details on their licensing terms and conditions: https://cctbx.github.io.
 
