@@ -67,7 +67,7 @@ pip uninstall residem
 
 # Documentation 
 
-The documentation of the tool can be referred to at the following webiste : [https://tamalab.github.io/residem/](https://tamalab.github.io/residem/)
+The documentation of the tool can be referred to at the following website : [https://tamalab.github.io/residem/](https://tamalab.github.io/residem/)
 
 
 
