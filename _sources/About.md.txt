@@ -32,8 +32,9 @@ complex structural changes occurring within the protein over time.
 
 For more information, kindly please see the [published paper](https://doi.org/10.1021/acs.jcim.4c00858). 
 
-If the tool was useful please cite us: Sriram Srinivasa Raghavan, Osamu Miyashita.ResiDEM: [Analytical Tool for Isomorphous Difference Electron
-Density Maps Utilizing Dynamic Residue Identification via Density Clustering](https://doi.org/10.1021/acs.jcim.4c00858). Journal of chemical information and modelling, **2024**. 
+If the tool was useful please cite us: 
+
+Raghavan, S. S. & Miyashita, O. [ResiDEM: Analytical Tool for Isomorphous Difference Electron Density Maps Utilizing Dynamic Residue Identification via Density Clustering. Journal of Chemical Information and Modeling (2024). DOI: 10.1021/acs.jcim.4c00858](https://doi.org/10.1021/acs.jcim.4c00858).
 
 
 For any help or queries with respect to the tool, contact [me](mailto:hypowergravity@gmail.com).
