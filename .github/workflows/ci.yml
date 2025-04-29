@@ -73,7 +73,7 @@ jobs:
           pytest --color=yes --cov=. --cov-report=xml --cov-report=term-missing --ignore=docs/
 
       - name: Coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
 
   test_macos:
     name: Test on macOS
@@ -129,7 +129,7 @@ jobs:
           pytest --color=yes --cov=. --cov-report=xml --cov-report=term-missing --ignore=docs/
 
       - name: Coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
 
   deploy:
     name: Deploy
