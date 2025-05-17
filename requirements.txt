@@ -42,7 +42,7 @@ sphinxcontrib-mermaid==0.9.2
 sphinxcontrib-qthelp==2.0.0
 sphinxcontrib-serializinghtml==1.1.10
 tomli==2.0.1
-tornado==6.4.2
+tornado>=6.5.0
 urllib3>=2.2.2
 wheel==0.44.0
 zstandard==0.23.0
