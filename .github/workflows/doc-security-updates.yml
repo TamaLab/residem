@@ -34,8 +34,30 @@ jobs:
           safety check -r requirements.txt --json > safety_report.json || true
           if [ -s safety_report.json ]; then
             echo "VULNERABILITIES_FOUND=true" >> $GITHUB_OUTPUT
+            # Extract vulnerable packages
+            python -c "
+import json
+import os
+try:
+    with open('safety_report.json', 'r') as f:
+        data = json.load(f)
+        packages = set()
+        for vuln in data:
+            if 'package_name' in vuln:
+                packages.add(vuln['package_name'])
+            elif 'package' in vuln:
+                packages.add(vuln['package'])
+        with open('vulnerable_packages.txt', 'w') as out:
+            for pkg in packages:
+                out.write(pkg + '\n')
+except Exception as e:
+    print(f'Error processing safety report: {e}')
+    with open('vulnerable_packages.txt', 'w') as out:
+        pass
+            "
           else
             echo "VULNERABILITIES_FOUND=false" >> $GITHUB_OUTPUT
+            touch vulnerable_packages.txt
           fi
       
       - name: Create branch for changes
@@ -48,8 +70,48 @@ jobs:
       - name: Update dependencies
         if: steps.check.outputs.VULNERABILITIES_FOUND == 'true'
         run: |
-          pip-compile --upgrade-package "*" requirements.txt -o requirements.txt.new
-          mv requirements.txt.new requirements.txt
+          # Create a temporary requirements file
+          cp requirements.txt requirements.txt.bak
+          
+          # Update each vulnerable package individually
+          if [ -s vulnerable_packages.txt ]; then
+            while read package; do
+              echo "Updating $package"
+              python -m pip install --upgrade $package
+            done < vulnerable_packages.txt
+          fi
+          
+          # Generate new requirements file with updated versions
+          python -m pip freeze > requirements.txt.new
+          
+          # Keep only the packages that were in the original requirements.txt
+          python -c "
+with open('requirements.txt.bak') as orig, open('requirements.txt.new') as new, open('requirements.txt.updated', 'w') as out:
+    orig_pkgs = {}
+    for line in orig:
+        line = line.strip()
+        if line and not line.startswith('#'):
+            parts = line.split('==', 1)
+            if len(parts) > 1:
+                orig_pkgs[parts[0].lower()] = line
+            else:
+                orig_pkgs[line.lower()] = line
+    
+    for line in new:
+        line = line.strip()
+        if line and not line.startswith('#'):
+            parts = line.split('==', 1)
+            if len(parts) > 1:
+                pkg_name = parts[0].lower()
+                if pkg_name in orig_pkgs:
+                    out.write(line + '\n')
+            elif line.lower() in orig_pkgs:
+                out.write(line + '\n')
+          "
+          
+          # Replace requirements.txt with updated version
+          mv requirements.txt.updated requirements.txt
+          rm requirements.txt.bak requirements.txt.new
       
       - name: Test documentation build
         if: steps.check.outputs.VULNERABILITIES_FOUND == 'true'
