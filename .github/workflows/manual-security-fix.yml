@@ -40,56 +40,56 @@ jobs:
           # Update all current vulnerable packages
           echo "Updating setuptools to secure version"
           if grep -q "setuptools" requirements.txt; then
-            sed -i 's/setuptools[<>=]*[0-9\.]*/setuptools>=68.0.0/' requirements.txt
+            sed -i 's/setuptools[<>=]*[0-9\.]*/setuptools>=72.1.1/' requirements.txt
           else
-            echo "setuptools>=68.0.0" >> requirements.txt
+            echo "setuptools>=72.1.1" >> requirements.txt
           fi
           
           echo "Updating tornado to secure version"
           if grep -q "tornado" requirements.txt; then
-            sed -i 's/tornado[<>=]*[0-9\.]*/tornado>=6.3.2/' requirements.txt
+            sed -i 's/tornado[<>=]*[0-9\.]*/tornado>=6.5.0/' requirements.txt
           else
-            echo "tornado>=6.3.2" >> requirements.txt
+            echo "tornado>=6.5.0" >> requirements.txt
           fi
           
           echo "Updating jinja2 to secure version"
           if grep -q "jinja2" requirements.txt; then
-            sed -i 's/jinja2[<>=]*[0-9\.]*/jinja2>=3.1.2/' requirements.txt
+            sed -i 's/jinja2[<>=]*[0-9\.]*/jinja2>=3.1.6/' requirements.txt
           else
-            echo "jinja2>=3.1.2" >> requirements.txt
+            echo "jinja2>=3.1.6" >> requirements.txt
           fi
           
           echo "Updating certifi to secure version"
           if grep -q "certifi" requirements.txt; then
-            sed -i 's/certifi[<>=]*[0-9\.]*/certifi>=2023.7.22/' requirements.txt
+            sed -i 's/certifi[<>=]*[0-9\.]*/certifi>=2024.7.4/' requirements.txt
           else
-            echo "certifi>=2023.7.22" >> requirements.txt
+            echo "certifi>2024.7.4" >> requirements.txt
           fi
           
           # Also update in docs/requirements.txt if it exists
           if [ -f "docs/requirements.txt" ]; then
             if grep -q "setuptools" docs/requirements.txt; then
-              sed -i 's/setuptools[<>=]*[0-9\.]*/setuptools>=68.0.0/' docs/requirements.txt
+              sed -i 's/setuptools[<>=]*[0-9\.]*/setuptools>=72.1.1/' docs/requirements.txt
             else
-              echo "setuptools>=68.0.0" >> docs/requirements.txt
+              echo "setuptools>=72.1.1" >> docs/requirements.txt
             fi
             
             if grep -q "tornado" docs/requirements.txt; then
-              sed -i 's/tornado[<>=]*[0-9\.]*/tornado>=6.3.2/' docs/requirements.txt
+              sed -i 's/tornado[<>=]*[0-9\.]*/tornado>=6.5.0/' docs/requirements.txt
             else
-              echo "tornado>=6.3.2" >> docs/requirements.txt
+              echo "tornado>=6.5.0" >> docs/requirements.txt
             fi
             
             if grep -q "jinja2" docs/requirements.txt; then
-              sed -i 's/jinja2[<>=]*[0-9\.]*/jinja2>=3.1.2/' docs/requirements.txt
+              sed -i 's/jinja2[<>=]*[0-9\.]*/jinja2>=3.1.6/' docs/requirements.txt
             else
-              echo "jinja2>=3.1.2" >> docs/requirements.txt
+              echo "jinja2>=3.1.6" >> docs/requirements.txt
             fi
             
             if grep -q "certifi" docs/requirements.txt; then
-              sed -i 's/certifi[<>=]*[0-9\.]*/certifi>=2023.7.22/' docs/requirements.txt
+              sed -i 's/certifi[<>=]*[0-9\.]*/certifi>=2024.7.4/' docs/requirements.txt
             else
-              echo "certifi>=2023.7.22" >> docs/requirements.txt
+              echo "certifi>2024.7.4" >> docs/requirements.txt
             fi
           fi
       
@@ -121,10 +121,10 @@ jobs:
             This PR updates multiple packages to fix security vulnerabilities currently flagged by Dependabot.
             
             ## Updates:
-            - setuptools to >=68.0.0
-            - tornado to >=6.3.2
-            - jinja2 to >=3.1.2
-            - certifi to >=2023.7.22
+            - setuptools to >=72.1.1
+            - tornado to >=6.5.0
+            - jinja2 to >=3.1.6
+            - certifi to >=2024.7.4
             
             The documentation builds successfully with these updates.
             
