@@ -1,0 +1,86 @@
+name: Documentation Security Updates
+
+permissions:
+  contents: write
+  pull-requests: write
+  security-events: read
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Weekly on Mondays
+  workflow_dispatch:
+
+jobs:
+  update-doc-dependencies:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python 3.12.5
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.5"
+      
+      - name: Install dependency tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pip-tools safety
+      
+      - name: Check for vulnerabilities
+        id: check
+        run: |
+          safety check -r requirements.txt --json > safety_report.json || true
+          if [ -s safety_report.json ]; then
+            echo "VULNERABILITIES_FOUND=true" >> $GITHUB_OUTPUT
+          else
+            echo "VULNERABILITIES_FOUND=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create branch for changes
+        if: steps.check.outputs.VULNERABILITIES_FOUND == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout -b docs-security-update-$(date +%Y%m%d)
+      
+      - name: Update dependencies
+        if: steps.check.outputs.VULNERABILITIES_FOUND == 'true'
+        run: |
+          pip-compile --upgrade-package "*" requirements.txt -o requirements.txt.new
+          mv requirements.txt.new requirements.txt
+      
+      - name: Test documentation build
+        if: steps.check.outputs.VULNERABILITIES_FOUND == 'true'
+        id: test_build
+        continue-on-error: true
+        run: |
+          pip install -r requirements.txt
+          pip install -e ".[docs]"
+          cd docs
+          make html
+          if [ $? -eq 0 ]; then
+            echo "BUILD_SUCCESS=true" >> $GITHUB_OUTPUT
+          else
+            echo "BUILD_SUCCESS=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Pull Request
+        if: steps.check.outputs.VULNERABILITIES_FOUND == 'true' && steps.test_build.outputs.BUILD_SUCCESS == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "docs: Update documentation dependencies [skip docs]"
+          title: "Security: Update documentation dependencies"
+          body: |
+            # Documentation Security Update
+            
+            This PR automatically updates documentation dependencies to resolve security vulnerabilities.
+            
+            ## Changes
+            - Updates vulnerable dependencies to secure versions
+            - Documentation builds successfully with these updates
+          branch: docs-security-update-$(date +%Y%m%d)
+          labels: documentation,security,dependencies,automated-pr
+          delete-branch: true
