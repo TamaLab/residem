@@ -1,0 +1,77 @@
+name: Manual Security Fix
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package name with vulnerability'
+        required: true
+      version:
+        description: 'Target version to update to'
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  fix-vulnerability:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python 3.12.5
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.5"
+      
+      - name: Create branch for changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout -b security-fix-${{ github.event.inputs.package }}-$(date +%Y%m%d)
+      
+      - name: Update dependency
+        run: |
+          python -m pip install --upgrade pip
+          # Update the dependency in requirements.txt
+          if grep -q "${{ github.event.inputs.package }}" requirements.txt; then
+            sed -i -E "s/${{ github.event.inputs.package }}(=|>|<|~=|==).*/${{ github.event.inputs.package }}==${{ github.event.inputs.version }}/" requirements.txt
+          else
+            echo "${{ github.event.inputs.package }}==${{ github.event.inputs.version }}" >> requirements.txt
+          fi
+      
+      - name: Test documentation build
+        id: test_build
+        continue-on-error: true
+        run: |
+          pip install -r requirements.txt
+          pip install -e ".[docs]"
+          cd docs
+          make html
+          if [ $? -eq 0 ]; then
+            echo "BUILD_SUCCESS=true" >> $GITHUB_OUTPUT
+          else
+            echo "BUILD_SUCCESS=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Pull Request
+        if: steps.test_build.outputs.BUILD_SUCCESS == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "security: Update ${{ github.event.inputs.package }} to ${{ github.event.inputs.version }} [skip docs]"
+          title: "Security: Update ${{ github.event.inputs.package }} to ${{ github.event.inputs.version }}"
+          body: |
+            # Security Update
+            
+            Manual security update for ${{ github.event.inputs.package }}.
+            
+            ## Changes
+            - Updates ${{ github.event.inputs.package }} to version ${{ github.event.inputs.version }}
+            - Documentation builds successfully with this update
+          branch: security-fix-${{ github.event.inputs.package }}-$(date +%Y%m%d)
+          labels: documentation,security,dependencies
+          delete-branch: true
