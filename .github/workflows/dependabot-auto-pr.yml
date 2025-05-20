@@ -1,0 +1,51 @@
+name: Dependabot Auto PR Processing
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  process-dependabot-pr:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      
+      - name: Identify documentation dependencies
+        id: identify_docs
+        run: |
+          PR_FILES=$(gh pr view ${{ github.event.pull_request.number }} --json files -q '.files[].path')
+          echo "$PR_FILES" > pr_files.txt
+          if grep -q "requirements.txt\|docs/" pr_files.txt; then
+            echo "IS_DOCS_PR=true" >> $GITHUB_OUTPUT
+          else
+            echo "IS_DOCS_PR=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Add documentation labels
+        if: steps.identify_docs.outputs.IS_DOCS_PR == 'true'
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} --add-label "documentation,dependencies,security,automated-pr"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Update commit message
+        if: steps.identify_docs.outputs.IS_DOCS_PR == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit --amend -m "docs: Update documentation dependencies [skip docs]"
+          git push --force-with-lease
