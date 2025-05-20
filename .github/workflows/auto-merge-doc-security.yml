@@ -7,6 +7,13 @@ on:
       - synchronize
       - reopened
       - labeled
+  # Add manual trigger option
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull Request Number to auto-merge'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -15,16 +22,21 @@ permissions:
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
-    # Only run on PRs with specific labels
+    # Different conditions based on trigger type
     if: |
-      contains(github.event.pull_request.labels.*.name, 'documentation') &&
-      contains(github.event.pull_request.labels.*.name, 'security') &&
-      contains(github.event.pull_request.labels.*.name, 'dependencies') &&
-      contains(github.event.pull_request.labels.*.name, 'automated-pr')
+      (github.event_name == 'pull_request' && 
+       contains(github.event.pull_request.labels.*.name, 'documentation') &&
+       contains(github.event.pull_request.labels.*.name, 'security') &&
+       contains(github.event.pull_request.labels.*.name, 'dependencies') &&
+       contains(github.event.pull_request.labels.*.name, 'automated-pr')) ||
+      github.event_name == 'workflow_dispatch'
     
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          # For workflow_dispatch, checkout the PR branch
+          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/pull/{0}/head', github.event.inputs.pr_number) || github.ref }}
       
       - name: Set up Python 3.12.5
         uses: actions/setup-python@v5
@@ -42,10 +54,17 @@ jobs:
           cd docs
           make html
       
-      # If docs build successfully, approve and merge the PR
-      - name: Auto-merge
-        if: success()
+      # Two separate steps for different event types
+      - name: Auto-merge PR event
+        if: github.event_name == 'pull_request' && success()
         run: |
           gh pr merge ${{ github.event.pull_request.number }} --squash --auto --delete-branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Auto-merge manual
+        if: github.event_name == 'workflow_dispatch' && success()
+        run: |
+          gh pr merge ${{ github.event.inputs.pr_number }} --squash --auto --delete-branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
