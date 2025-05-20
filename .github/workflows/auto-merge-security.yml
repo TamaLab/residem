@@ -1,0 +1,49 @@
+name: Auto-Merge Security PRs
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    # Only run on security PRs
+    if: |
+      contains(github.event.pull_request.title, 'Security') ||
+      contains(github.event.pull_request.title, 'security') ||
+      (contains(github.event.pull_request.labels.*.name, 'security') && 
+       contains(github.event.pull_request.labels.*.name, 'documentation'))
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python 3.12.5
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.5"
+      
+      - name: Test documentation build
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install sphinx-rtd-theme
+          pip install -e ".[docs]"
+          cd docs
+          make clean
+          make html
+      
+      # If tests pass, approve and merge the PR
+      - name: Auto-merge
+        if: success()
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} --squash --auto --delete-branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
