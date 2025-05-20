@@ -2,9 +2,24 @@
 
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
+  # Python dependencies (for documentation)
+  - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
+    labels:
+      - "dependencies"
     commit-message:
-      prefix: "ci(dependabot):"
+      prefix: "deps"
+      include: "scope"
+  
+  # Check docs directory if you have separate requirements there
+  - package-ecosystem: "pip"
+    directory: "/docs"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "docs"
+      include: "scope"
